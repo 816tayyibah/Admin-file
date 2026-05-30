@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#1a472a"/>
+<title>Deen & Fun Camp — Admin</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 50%, #1b4332 100%); min-height: 100vh; padding: 16px; }
+
+  .header { text-align: center; padding: 16px 0 12px; }
+  .header-icon { font-size: 36px; margin-bottom: 6px; }
+  .header h1 { color: #ffd700; font-size: 20px; font-weight: 800; text-shadow: 0 2px 4px rgba(0,0,0,.4); }
+  .header p  { color: #a8d8a8; font-size: 12px; margin-top: 4px; }
+  .status-bar { text-align: center; font-size: 11px; color: #a8d8a8; margin-bottom: 8px; }
+  .status-bar.err { color: #ff6b6b; }
+
+  .nav-tabs { display: flex; gap: 4px; margin-bottom: 14px; background: rgba(0,0,0,.2); border-radius: 12px; padding: 4px; flex-wrap: wrap; }
+  .nav-tab { flex: 1; min-width: 60px; padding: 9px 4px; border: none; background: transparent; color: #a8d8a8; font-size: 11px; font-weight: 500; border-radius: 8px; cursor: pointer; text-align: center; white-space: nowrap; }
+  .nav-tab.active { background: #ffd700; color: #1a472a; font-weight: 700; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .card { background: rgba(255,255,255,.95); border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  .card-title { font-size: 14px; font-weight: 700; color: #1a472a; margin-bottom: 12px; }
+
+  .summary-strip { display: flex; gap: 6px; margin-bottom: 12px; }
+  .summary-box { flex: 1; background: rgba(255,255,255,.15); border-radius: 10px; padding: 8px 4px; text-align: center; }
+  .summary-box .num { font-size: 20px; font-weight: 700; color: #ffd700; }
+  .summary-box .num.red { color: #ff6b6b; }
+  .summary-box .lbl { font-size: 10px; color: #a8d8a8; margin-top: 3px; line-height: 1.3; }
+
+  .today-date { background: #ffd700; color: #1a472a; font-weight: 700; font-size: 13px; padding: 6px 10px; border-radius: 20px; text-align: center; margin-bottom: 12px; }
+
+  /* Alpha index */
+  .alpha-index { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .alpha-btn { padding: 4px 8px; background: rgba(45,106,79,.12); border: 1px solid #c8e6c9; border-radius: 6px; font-size: 12px; font-weight: 700; color: #2d6a4f; cursor: pointer; }
+  .alpha-btn:hover { background: #2d6a4f; color: white; }
+  .alpha-header { font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 6px; margin: 8px 0 4px; letter-spacing: 1px; }
+
+  /* Student cards */
+  .student-list { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; }
+  .student-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f8fdf8; border: 1.5px solid #c8e6c9; border-radius: 14px; }
+  .student-card.marked-present { background: #d4edda; border-color: #52b788; }
+  .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #2d6a4f, #52b788); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+  .s-name { font-size: 16px; font-weight: 700; color: #1a472a; }
+  .s-info { font-size: 11px; color: #444; margin-top: 2px; }
+
+  .btn-mark { padding: 8px 14px; border: none; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .btn-present { background: #52b788; color: white; }
+  .btn-absent  { background: #e9ecef; color: #555; }
+  .btn-del { padding: 5px 9px; background: #fee2e2; color: #c0392b; border: none; border-radius: 6px; font-size: 11px; cursor: pointer; }
+
+  /* Add student */
+  .add-row { display: flex; gap: 8px; }
+  .add-row input { flex: 1; padding: 10px 12px; border: 2px solid #2d6a4f; border-radius: 10px; font-size: 14px; outline: none; }
+  .add-row input:focus { border-color: #ffd700; }
+  .btn-add { padding: 10px 14px; background: #2d6a4f; color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+
+  /* Record table */
+  .att-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .att-table th { background: #2d6a4f; color: white; padding: 6px 4px; text-align: center; font-weight: 600; position: sticky; top: 0; }
+  .att-table th:first-child { text-align: left; padding-left: 8px; min-width: 100px; }
+  .att-table td { padding: 5px 4px; text-align: center; border-bottom: 1px solid #e9ecef; }
+  .att-table td:first-child { text-align: left; padding-left: 8px; font-weight: 600; color: #1a472a; font-size: 12px; }
+  .att-table tr:nth-child(even) { background: #f8fdf8; }
+  .dot-p { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #52b788; line-height: 14px; font-size: 8px; color: white; }
+  .dot-a { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #dee2e6; }
+  .table-wrap { overflow-x: auto; max-height: 340px; overflow-y: auto; border-radius: 8px; }
+
+  /* Ranking */
+  .rank-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f8fdf8; border: 1.5px solid #c8e6c9; border-radius: 14px; margin-bottom: 8px; }
+  .rank-num { width: 30px; height: 30px; border-radius: 50%; background: #2d6a4f; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .rank-num.gold   { background: #ffd700; color: #1a472a; }
+  .rank-num.silver { background: #c0c0c0; color: #333; }
+  .rank-num.bronze { background: #cd7f32; color: white; }
+  .rank-name { font-size: 15px; font-weight: 700; color: #1a472a; }
+  .rank-bar { height: 6px; background: #e9ecef; border-radius: 3px; margin-top: 4px; }
+  .rank-bar-fill { height: 100%; background: linear-gradient(90deg,#52b788,#2d6a4f); border-radius: 3px; }
+  .rank-count { font-size: 13px; font-weight: 700; color: #2d6a4f; white-space: nowrap; }
+
+  /* Stars */
+  .star-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fffdf0; border: 1.5px solid #ffe082; border-radius: 14px; margin-bottom: 8px; }
+  .star-count-display { font-size: 22px; font-weight: 800; color: #f57f17; min-width: 36px; text-align: center; }
+  .star-controls { display: flex; gap: 6px; }
+  .btn-star { width: 34px; height: 34px; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .btn-star-add { background: #ffd700; color: #1a472a; }
+  .btn-star-sub { background: #ffe082; color: #7f4f00; }
+
+  /* Points */
+  .points-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f0f4ff; border: 1.5px solid #90caf9; border-radius: 14px; margin-bottom: 8px; }
+  .points-display { font-size: 22px; font-weight: 800; color: #1565c0; min-width: 42px; text-align: center; }
+  .pts-input { width: 60px; padding: 6px 8px; border: 2px solid #90caf9; border-radius: 8px; font-size: 14px; text-align: center; outline: none; }
+  .btn-pts { padding: 7px 10px; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-pts-add { background: #1976d2; color: white; }
+  .btn-pts-clr { background: #e3f2fd; color: #1565c0; }
+  .pts-session-note { font-size: 11px; color: #888; margin-top: 2px; }
+
+  .notice-box { background: #fff; border-radius: 14px; padding: 20px 16px; text-align: center; color: #111; font-size: 14px; line-height: 1.9; font-weight: 500; }
+  .notice-box .big { font-size: 36px; margin-bottom: 8px; }
+  .notice-box .hi { color: #1a3c8f; font-weight: 700; }
+  .empty-state { text-align: center; padding: 20px; color: #555; font-size: 13px; }
+  .section-note { font-size: 12px; color: #888; margin-bottom: 10px; }
+
+  .btn-clear-session { width: 100%; padding: 10px; background: #fee2e2; color: #c0392b; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">⛺</div>
+  <h1>Deen &amp; Fun Camp — Admin</h1>
+  <p>29 June – 31 July 2026 &nbsp;|&nbsp; Admin Panel</p>
+</div>
+
+<div class="status-bar" id="statusBar">Connecting...</div>
+<div class="summary-strip" id="summaryStrip"></div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('attendance',this)">📋 Attendance</button>
+  <button class="nav-tab" onclick="showTab('students',this)">👦 Students</button>
+  <button class="nav-tab" onclick="showTab('stars',this)">⭐ Stars</button>
+  <button class="nav-tab" onclick="showTab('points',this)">🎯 Points</button>
+  <button class="nav-tab" onclick="showTab('record',this)">📊 Record</button>
+  <button class="nav-tab" onclick="showTab('ranking',this)">🏆 Ranking</button>
+</div>
+
+<!-- ATTENDANCE -->
+<div id="tab-attendance" class="section active">
+  <div class="card">
+    <div class="card-title">📅 Today's Attendance</div>
+    <div class="today-date" id="todayLabel"></div>
+    <div id="alphaAtt"></div>
+    <div class="student-list" id="attendanceList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- STUDENTS -->
+<div id="tab-students" class="section">
+  <div class="card">
+    <div class="card-title">👦 Add Student Manually</div>
+    <div class="add-row">
+      <input type="text" id="studentInput" placeholder="Child's full name..." onkeypress="if(event.key==='Enter')addStudent()"/>
+      <button class="btn-add" onclick="addStudent()">+ Add</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 All Students (<span id="studentCount">0</span>)</div>
+    <div class="student-list" id="studentMgmtList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- STARS -->
+<div id="tab-stars" class="section">
+  <div class="card">
+    <div class="card-title">⭐ Star Tracker</div>
+    <p class="section-note">Tap ⭐ to add a star, tap − to remove. Stars are saved permanently.</p>
+    <div id="starsList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- POINTS -->
+<div id="tab-points" class="section">
+  <div class="card">
+    <div class="card-title">🎯 Game / Quiz Points</div>
+    <p class="section-note">Enter points per child for this session. Press "Clear All" when the game ends.</p>
+    <div id="pointsList"><div class="empty-state">Loading...</div></div>
+    <button class="btn-clear-session" onclick="clearAllPoints()">🗑 Clear All Points (Game Over)</button>
+  </div>
+</div>
+
+<!-- RECORD -->
+<div id="tab-record" class="section">
+  <div class="card">
+    <div class="card-title">📊 Full Attendance Record</div>
+    <div class="table-wrap">
+      <table class="att-table"><thead id="recordHead"></thead><tbody id="recordBody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- RANKING -->
+<div id="tab-ranking" class="section">
+  <div class="card">
+    <div class="card-title">🏆 Attendance Ranking</div>
+    <div id="rankingList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⭐ Star Ranking</div>
+    <div id="starRankingList"></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDpJATiYye-RiKj2kAKeEPxquYvOiVr3RQ",
+  authDomain: "deenfuncamp.firebaseapp.com",
+  projectId: "deenfuncamp",
+  storageBucket: "deenfuncamp.firebasestorage.app",
+  messagingSenderId: "707882631016",
+  appId: "1:707882631016:web:06db2308e2123e746160dd",
+  databaseURL: "https://deenfuncamp-default-rtdb.firebaseio.com"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+const CAMP_START = new Date(2026, 5, 29);
+const CAMP_END   = new Date(2026, 6, 31);
+
+function getCampDays() {
+  const days = [];
+  let d = new Date(CAMP_START);
+  while (d <= CAMP_END) {
+    if (d.getDay()>=1 && d.getDay()<=5) days.push(new Date(d));
+    d.setDate(d.getDate()+1);
+  }
+  return days;
+}
+const campDays = getCampDays();
+
+function fmtKey(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fmtDisplay(d) {
+  const dn=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return dn[d.getDay()]+', '+d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();
+}
+function fmtShort(d) { return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
+function isCampDay(d) { return campDays.some(c=>fmtKey(c)===fmtKey(d)); }
+function initials(n) { return n.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function safeKey(n) { return n.trim().replace(/[.#$\[\]\/\s]/g,'_').toLowerCase(); }
+
+let students={}, attendance={}, stars={}, points={};
+
+onValue(ref(db,'students'), snap=>{
+  students = snap.val()||{};
+  document.getElementById('statusBar').textContent='🟢 Connected — live data';
+  document.getElementById('statusBar').classList.remove('err');
+  renderAll();
+}, ()=>{
+  document.getElementById('statusBar').textContent='🔴 Connection error';
+  document.getElementById('statusBar').classList.add('err');
+});
+onValue(ref(db,'attendance'), snap=>{ attendance=snap.val()||{}; renderAll(); });
+onValue(ref(db,'stars'),      snap=>{ stars=snap.val()||{};      renderAll(); });
+onValue(ref(db,'points'),     snap=>{ points=snap.val()||{};     renderAll(); });
+
+function getStudentList() {
+  return Object.entries(students).map(([k,v])=>({k,name:v.name})).sort((a,b)=>a.name.localeCompare(b.name));
+}
+function groupByLetter(list) {
+  const g={};
+  list.forEach(s=>{ const l=s.name[0].toUpperCase(); if(!g[l]) g[l]=[]; g[l].push(s); });
+  return g;
+}
+function buildAlphaNav(letters, scrollFn) {
+  if (letters.length<=1) return '';
+  return `<div class="alpha-index">${letters.map(l=>`<button class="alpha-btn" onclick="${scrollFn}('${l}')">${l}</button>`).join('')}</div>`;
+}
+
+// ── ATTENDANCE ─────────────────────────────────
+window.toggleAttendance = k => {
+  const today=new Date(); if(!isCampDay(today)) return;
+  const dk=fmtKey(today);
+  const cur=attendance[dk]&&attendance[dk][k];
+  set(ref(db,'attendance/'+dk+'/'+k), cur===1?0:1);
+};
+
+function renderAttendance() {
+  document.getElementById('todayLabel').textContent = fmtDisplay(new Date());
+  const el=document.getElementById('attendanceList');
+  const ai=document.getElementById('alphaAtt');
+  const today=new Date(), dk=fmtKey(today);
+
+  if(today<CAMP_START){
+    ai.innerHTML='';
+    const diff=Math.ceil((CAMP_START-today)/86400000);
+    el.innerHTML=`<div class="notice-box"><div class="big">📅</div>Camp starts on <span class="hi">29 June 2026</span><br><span class="hi">${diff} days</span> to go!</div>`;
+    return;
+  }
+  if(today>CAMP_END){ ai.innerHTML=''; el.innerHTML=`<div class="notice-box"><div class="big">🏁</div>Camp ended. Check Record & Ranking.</div>`; return; }
+  if(!isCampDay(today)){ ai.innerHTML=''; el.innerHTML=`<div class="notice-box"><div class="big">🌙</div>Weekend — no camp today.<br>See you on <span class="hi">Monday</span>!</div>`; return; }
+
+  const list=getStudentList();
+  if(!list.length){ ai.innerHTML=''; el.innerHTML='<div class="empty-state">No students registered yet.</div>'; return; }
+
+  const groups=groupByLetter(list);
+  const letters=Object.keys(groups).sort();
+  ai.innerHTML=buildAlphaNav(letters,"scrollAttLetter");
+  el.innerHTML=letters.map(lt=>{
+    const hdr=`<div class="alpha-header" id="att_${lt}">${lt}</div>`;
+    const att=attendance[dk]||{};
+    return hdr+groups[lt].map(s=>{
+      const p=att[s.k]===1;
+      return `<div class="student-card ${p?'marked-present':''}">
+        <div class="avatar">${initials(s.name)}</div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">${p?'✅ Present':'⏳ Not marked'}</div></div>
+        <button class="btn-mark ${p?'btn-present':'btn-absent'}" onclick="toggleAttendance('${s.k}')">${p?'✓ Present':'Mark Present'}</button>
+      </div>`;
+    }).join('');
+  }).join('');
+}
+window.scrollAttLetter = l => { const e=document.getElementById('att_'+l); if(e) e.scrollIntoView({behavior:'smooth',block:'nearest'}); };
+
+// ── SUMMARY ───────────────────────────────────
+function renderSummary() {
+  const today=new Date(), dk=fmtKey(today);
+  const list=getStudentList();
+  const remaining=campDays.filter(d=>fmtKey(d)>dk).length;
+  let present=0,absent=0;
+  if(isCampDay(today)&&list.length){ const att=attendance[dk]||{}; present=list.filter(s=>att[s.k]===1).length; absent=list.length-present; }
+  document.getElementById('summaryStrip').innerHTML=`
+    <div class="summary-box"><div class="num">${list.length}</div><div class="lbl">Total Students</div></div>
+    <div class="summary-box"><div class="num">${present}</div><div class="lbl">Present Today</div></div>
+    <div class="summary-box"><div class="num red">${absent}</div><div class="lbl">Absent Today</div></div>
+    <div class="summary-box"><div class="num">${remaining}</div><div class="lbl">Days Remaining</div></div>`;
+}
+
+// ── STUDENTS ──────────────────────────────────
+window.addStudent = ()=>{
+  const inp=document.getElementById('studentInput');
+  const name=inp.value.trim(); if(!name) return;
+  const k=safeKey(name);
+  const exists=Object.values(students).some(s=>s.name.toLowerCase()===name.toLowerCase());
+  if(exists){ alert('This name already exists!'); return; }
+  set(ref(db,'students/'+k),{name,addedAt:Date.now()});
+  inp.value='';
+};
+window.removeStudent=(k,name)=>{ if(!confirm('Remove '+name+'?')) return; remove(ref(db,'students/'+k)); };
+
+function renderStudents() {
+  const list=getStudentList();
+  document.getElementById('studentCount').textContent=list.length;
+  const el=document.getElementById('studentMgmtList');
+  if(!list.length){ el.innerHTML='<div class="empty-state">No students yet.</div>'; return; }
+  const groups=groupByLetter(list); const letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>{
+    const hdr=`<div class="alpha-header">${lt}</div>`;
+    return hdr+groups[lt].map(s=>{
+      const total=campDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length;
+      const starsCount=stars[s.k]||0;
+      return `<div class="student-card">
+        <div class="avatar">${initials(s.name)}</div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Attendance: ${total} days &nbsp;|&nbsp; ⭐ ${starsCount}</div></div>
+        <button class="btn-del" onclick="removeStudent('${s.k}','${s.name.replace(/'/g,"\\'")}')">🗑</button>
+      </div>`;
+    }).join('');
+  }).join('');
+}
+
+// ── STARS ─────────────────────────────────────
+window.addStar    = k=>{ set(ref(db,'stars/'+k),(stars[k]||0)+1); };
+window.removeStar = k=>{ const v=stars[k]||0; if(v>0) set(ref(db,'stars/'+k),v-1); };
+
+function renderStars() {
+  const list=getStudentList();
+  const el=document.getElementById('starsList');
+  if(!list.length){ el.innerHTML='<div class="empty-state">No students yet.</div>'; return; }
+  const groups=groupByLetter(list); const letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>{
+    const hdr=`<div class="alpha-header">${lt}</div>`;
+    return hdr+groups[lt].map(s=>{
+      const cnt=stars[s.k]||0;
+      const starsDisplay='⭐'.repeat(Math.min(cnt,10))+(cnt>10?` +${cnt-10}`:'');
+      return `<div class="star-card">
+        <div class="avatar">${initials(s.name)}</div>
+        <div style="flex:1">
+          <div class="s-name">${s.name}</div>
+          <div style="font-size:14px;margin-top:3px">${cnt>0?starsDisplay:'No stars yet'}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="star-count-display">${cnt}</span>
+          <div class="star-controls">
+            <button class="btn-star btn-star-sub" onclick="removeStar('${s.k}')">−</button>
+            <button class="btn-star btn-star-add" onclick="addStar('${s.k}')">⭐</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }).join('');
+}
+
+// ── POINTS ────────────────────────────────────
+window.addPoints = (k,inputId)=>{
+  const val=parseInt(document.getElementById(inputId).value)||0;
+  if(val===0) return;
+  const cur=points[k]||0;
+  set(ref(db,'points/'+k),cur+val);
+  document.getElementById(inputId).value='';
+};
+window.clearAllPoints = ()=>{
+  if(!confirm('Clear ALL points? This will reset everyone to 0.')) return;
+  set(ref(db,'points'),null);
+};
+
+function renderPoints() {
+  const list=getStudentList();
+  const el=document.getElementById('pointsList');
+  if(!list.length){ el.innerHTML='<div class="empty-state">No students yet.</div>'; return; }
+  const groups=groupByLetter(list); const letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>{
+    const hdr=`<div class="alpha-header">${lt}</div>`;
+    return hdr+groups[lt].map(s=>{
+      const pts=points[s.k]||0;
+      const inpId='pts_'+s.k;
+      return `<div class="points-card">
+        <div class="avatar">${initials(s.name)}</div>
+        <div style="flex:1">
+          <div class="s-name">${s.name}</div>
+          <div class="pts-session-note">Total: <strong>${pts} pts</strong></div>
+        </div>
+        <input type="number" id="${inpId}" class="pts-input" placeholder="+pts" min="0" onkeypress="if(event.key==='Enter')addPoints('${s.k}','${inpId}')"/>
+        <button class="btn-pts btn-pts-add" onclick="addPoints('${s.k}','${inpId}')">Add</button>
+      </div>`;
+    }).join('');
+  }).join('');
+}
+
+// ── RECORD ────────────────────────────────────
+function renderRecord() {
+  const today=new Date();
+  const pastDays=campDays.filter(d=>fmtKey(d)<=fmtKey(today));
+  const head=document.getElementById('recordHead'), body=document.getElementById('recordBody');
+  if(!pastDays.length){ head.innerHTML=''; body.innerHTML='<tr><td colspan="2" style="text-align:center;padding:16px;color:#111;">Camp starts 29 June 2026</td></tr>'; return; }
+  head.innerHTML='<tr><th>Name</th>'+pastDays.map(d=>`<th>${fmtShort(d)}</th>`).join('')+'<th>Total</th></tr>';
+  const list=getStudentList();
+  if(!list.length){ body.innerHTML=`<tr><td colspan="${pastDays.length+2}" style="text-align:center;padding:16px;">No students</td></tr>`; return; }
+  body.innerHTML=list.map(s=>{
+    const cells=pastDays.map(d=>{ const v=attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]; return `<td>${v===1?'<span class="dot-p">✓</span>':'<span class="dot-a"></span>'}</td>`; }).join('');
+    const total=pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length;
+    return `<tr><td>${s.name}</td>${cells}<td><strong>${total}</strong></td></tr>`;
+  }).join('');
+}
+
+// ── RANKING ───────────────────────────────────
+function renderRanking() {
+  const list=getStudentList();
+  const attEl=document.getElementById('rankingList');
+  const starEl=document.getElementById('starRankingList');
+  if(!list.length){ attEl.innerHTML=starEl.innerHTML='<div class="empty-state">No students yet.</div>'; return; }
+
+  const pastDays=campDays.filter(d=>fmtKey(d)<=fmtKey(new Date()));
+  const maxDays=pastDays.length||1;
+  const medals=['gold','silver','bronze'];
+
+  // Attendance ranking
+  const attRanked=[...list].map(s=>({ name:s.name, count:pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length })).sort((a,b)=>b.count-a.count);
+  attEl.innerHTML=attRanked.map((s,i)=>{
+    const pct=Math.round(s.count/maxDays*100), m=medals[i]||null;
+    const icon=m==='gold'?'🥇':m==='silver'?'🥈':m==='bronze'?'🥉':i+1;
+    return `<div class="rank-card">
+      <div class="rank-num ${m||''}">${icon}</div>
+      <div style="flex:1"><div class="rank-name">${s.name}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+          <div class="rank-bar" style="flex:1"><div class="rank-bar-fill" style="width:${pct}%"></div></div>
+          <span style="font-size:11px;color:#444">${pct}%</span>
+        </div>
+      </div>
+      <div class="rank-count">${s.count}/${maxDays}</div>
+    </div>`;
+  }).join('');
+
+  // Star ranking
+  const starRanked=[...list].map(s=>({name:s.name,cnt:stars[s.k]||0})).sort((a,b)=>b.cnt-a.cnt);
+  const maxStar=Math.max(...starRanked.map(s=>s.cnt),1);
+  starEl.innerHTML=starRanked.map((s,i)=>{
+    const pct=Math.round(s.cnt/maxStar*100), m=medals[i]||null;
+    const icon=m==='gold'?'🥇':m==='silver'?'🥈':m==='bronze'?'🥉':i+1;
+    return `<div class="rank-card" style="background:#fffdf0;border-color:#ffe082">
+      <div class="rank-num ${m||''}">${icon}</div>
+      <div style="flex:1"><div class="rank-name">${s.name}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+          <div class="rank-bar" style="flex:1"><div class="rank-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,#ffd700,#f57f17)"></div></div>
+          <span style="font-size:11px;color:#444">${s.cnt} ⭐</span>
+        </div>
+      </div>
+      <div class="rank-count" style="color:#f57f17">${s.cnt} stars</div>
+    </div>`;
+  }).join('');
+}
+
+window.showTab=(tab,btn)=>{
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+  if(tab==='record') renderRecord();
+  if(tab==='ranking') renderRanking();
+  if(tab==='students') renderStudents();
+  if(tab==='stars') renderStars();
+  if(tab==='points') renderPoints();
+};
+
+function renderAll() {
+  renderSummary(); renderAttendance();
+  const activeBtn=document.querySelector('.nav-tab.active');
+  if(activeBtn){
+    const m=activeBtn.getAttribute('onclick').match(/'(\w+)'/);
+    if(m){
+      if(m[1]==='record')   renderRecord();
+      if(m[1]==='ranking')  renderRanking();
+      if(m[1]==='students') renderStudents();
+      if(m[1]==='stars')    renderStars();
+      if(m[1]==='points')   renderPoints();
+    }
+  }
+}
+</script>
+</body>
+</html>

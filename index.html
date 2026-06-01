@@ -17,7 +17,7 @@
   .status-bar.err { color: #ff6b6b; }
 
   .nav-tabs { display: flex; gap: 4px; margin-bottom: 14px; background: rgba(0,0,0,.2); border-radius: 12px; padding: 4px; flex-wrap: wrap; }
-  .nav-tab { flex: 1; min-width: 60px; padding: 9px 4px; border: none; background: transparent; color: #a8d8a8; font-size: 11px; font-weight: 500; border-radius: 8px; cursor: pointer; text-align: center; white-space: nowrap; }
+  .nav-tab { flex: 1; min-width: 55px; padding: 9px 4px; border: none; background: transparent; color: #a8d8a8; font-size: 11px; font-weight: 500; border-radius: 8px; cursor: pointer; text-align: center; white-space: nowrap; }
   .nav-tab.active { background: #ffd700; color: #1a472a; font-weight: 700; }
 
   .section { display: none; }
@@ -34,13 +34,11 @@
 
   .today-date { background: #ffd700; color: #1a472a; font-weight: 700; font-size: 13px; padding: 6px 10px; border-radius: 20px; text-align: center; margin-bottom: 12px; }
 
-  /* Alpha index */
   .alpha-index { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
   .alpha-btn { padding: 4px 8px; background: rgba(45,106,79,.12); border: 1px solid #c8e6c9; border-radius: 6px; font-size: 12px; font-weight: 700; color: #2d6a4f; cursor: pointer; }
   .alpha-btn:hover { background: #2d6a4f; color: white; }
   .alpha-header { font-size: 12px; font-weight: 700; color: #2d6a4f; background: #e8f5e9; padding: 4px 10px; border-radius: 6px; margin: 8px 0 4px; letter-spacing: 1px; }
 
-  /* Student cards */
   .student-list { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; }
   .student-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f8fdf8; border: 1.5px solid #c8e6c9; border-radius: 14px; }
   .student-card.marked-present { background: #d4edda; border-color: #52b788; }
@@ -53,13 +51,11 @@
   .btn-absent  { background: #e9ecef; color: #555; }
   .btn-del { padding: 5px 9px; background: #fee2e2; color: #c0392b; border: none; border-radius: 6px; font-size: 11px; cursor: pointer; }
 
-  /* Add student */
   .add-row { display: flex; gap: 8px; }
   .add-row input { flex: 1; padding: 10px 12px; border: 2px solid #2d6a4f; border-radius: 10px; font-size: 14px; outline: none; }
   .add-row input:focus { border-color: #ffd700; }
   .btn-add { padding: 10px 14px; background: #2d6a4f; color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 
-  /* Record table */
   .att-table { width: 100%; border-collapse: collapse; font-size: 11px; }
   .att-table th { background: #2d6a4f; color: white; padding: 6px 4px; text-align: center; font-weight: 600; position: sticky; top: 0; }
   .att-table th:first-child { text-align: left; padding-left: 8px; min-width: 100px; }
@@ -70,7 +66,6 @@
   .dot-a { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #dee2e6; }
   .table-wrap { overflow-x: auto; max-height: 340px; overflow-y: auto; border-radius: 8px; }
 
-  /* Ranking */
   .rank-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f8fdf8; border: 1.5px solid #c8e6c9; border-radius: 14px; margin-bottom: 8px; }
   .rank-num { width: 30px; height: 30px; border-radius: 50%; background: #2d6a4f; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
   .rank-num.gold   { background: #ffd700; color: #1a472a; }
@@ -81,7 +76,6 @@
   .rank-bar-fill { height: 100%; background: linear-gradient(90deg,#52b788,#2d6a4f); border-radius: 3px; }
   .rank-count { font-size: 13px; font-weight: 700; color: #2d6a4f; white-space: nowrap; }
 
-  /* Stars */
   .star-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fffdf0; border: 1.5px solid #ffe082; border-radius: 14px; margin-bottom: 8px; }
   .star-count-display { font-size: 22px; font-weight: 800; color: #f57f17; min-width: 36px; text-align: center; }
   .star-controls { display: flex; gap: 6px; }
@@ -89,13 +83,10 @@
   .btn-star-add { background: #ffd700; color: #1a472a; }
   .btn-star-sub { background: #ffe082; color: #7f4f00; }
 
-  /* Points */
   .points-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f0f4ff; border: 1.5px solid #90caf9; border-radius: 14px; margin-bottom: 8px; }
-  .points-display { font-size: 22px; font-weight: 800; color: #1565c0; min-width: 42px; text-align: center; }
   .pts-input { width: 60px; padding: 6px 8px; border: 2px solid #90caf9; border-radius: 8px; font-size: 14px; text-align: center; outline: none; }
   .btn-pts { padding: 7px 10px; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
   .btn-pts-add { background: #1976d2; color: white; }
-  .btn-pts-clr { background: #e3f2fd; color: #1565c0; }
   .pts-session-note { font-size: 11px; color: #888; margin-top: 2px; }
 
   .notice-box { background: #fff; border-radius: 14px; padding: 20px 16px; text-align: center; color: #111; font-size: 14px; line-height: 1.9; font-weight: 500; }
@@ -103,7 +94,6 @@
   .notice-box .hi { color: #1a3c8f; font-weight: 700; }
   .empty-state { text-align: center; padding: 20px; color: #555; font-size: 13px; }
   .section-note { font-size: 12px; color: #888; margin-bottom: 10px; }
-
   .btn-clear-session { width: 100%; padding: 10px; background: #fee2e2; color: #c0392b; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 10px; }
 </style>
 </head>
@@ -121,6 +111,7 @@
 <div class="nav-tabs">
   <button class="nav-tab active" onclick="showTab('attendance',this)">📋 Attendance</button>
   <button class="nav-tab" onclick="showTab('students',this)">👦 Students</button>
+  <button class="nav-tab" onclick="showTab('agegroups',this)">🎨 Age Groups</button>
   <button class="nav-tab" onclick="showTab('stars',this)">⭐ Stars</button>
   <button class="nav-tab" onclick="showTab('points',this)">🎯 Points</button>
   <button class="nav-tab" onclick="showTab('record',this)">📊 Record</button>
@@ -149,6 +140,29 @@
   <div class="card">
     <div class="card-title">📋 All Students (<span id="studentCount">0</span>)</div>
     <div class="student-list" id="studentMgmtList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- AGE GROUPS -->
+<div id="tab-agegroups" class="section">
+  <div class="card">
+    <div class="card-title">🎨 Age Group Filter</div>
+    <p class="section-note">Enter an age range to see matching students.</p>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label style="font-size:13px;font-weight:600;color:#333;margin:0;">From</label>
+        <input type="number" id="ageFrom" placeholder="e.g. 6" inputmode="numeric"
+          style="width:70px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:14px;outline:none;"/>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label style="font-size:13px;font-weight:600;color:#333;margin:0;">To</label>
+        <input type="number" id="ageTo" placeholder="e.g. 9" inputmode="numeric"
+          style="width:70px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:14px;outline:none;"/>
+      </div>
+      <button onclick="filterByAge()" style="padding:9px 18px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Search</button>
+      <button onclick="clearAgeFilter()" style="padding:9px 14px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Clear</button>
+    </div>
+    <div id="ageGroupResult"></div>
   </div>
 </div>
 
@@ -195,7 +209,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDpJATiYye-RiKj2kAKeEPxquYvOiVr3RQ",
@@ -250,7 +264,7 @@ onValue(ref(db,'stars'),      snap=>{ stars=snap.val()||{};      renderAll(); })
 onValue(ref(db,'points'),     snap=>{ points=snap.val()||{};     renderAll(); });
 
 function getStudentList() {
-  return Object.entries(students).map(([k,v])=>({k,name:v.name})).sort((a,b)=>a.name.localeCompare(b.name));
+  return Object.entries(students).map(([k,v])=>({k,name:v.name,age:v.age||''})).sort((a,b)=>a.name.localeCompare(b.name));
 }
 function groupByLetter(list) {
   const g={};
@@ -298,7 +312,7 @@ function renderAttendance() {
       const p=att[s.k]===1;
       return `<div class="student-card ${p?'marked-present':''}">
         <div class="avatar">${initials(s.name)}</div>
-        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">${p?'✅ Present':'⏳ Not marked'}</div></div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Age: ${s.age||'—'} yrs &nbsp;|&nbsp; ${p?'✅ Present':'⏳ Not marked'}</div></div>
         <button class="btn-mark ${p?'btn-present':'btn-absent'}" onclick="toggleAttendance('${s.k}')">${p?'✓ Present':'Mark Present'}</button>
       </div>`;
     }).join('');
@@ -345,12 +359,62 @@ function renderStudents() {
       const starsCount=stars[s.k]||0;
       return `<div class="student-card">
         <div class="avatar">${initials(s.name)}</div>
-        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Attendance: ${total} days &nbsp;|&nbsp; ⭐ ${starsCount}</div></div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Age: ${s.age||'—'} yrs &nbsp;|&nbsp; Attendance: ${total} days &nbsp;|&nbsp; ⭐ ${starsCount}</div></div>
         <button class="btn-del" onclick="removeStudent('${s.k}','${s.name.replace(/'/g,"\\'")}')">🗑</button>
       </div>`;
     }).join('');
   }).join('');
 }
+
+// ── AGE GROUPS ────────────────────────────────
+window.filterByAge = function() {
+  const from = parseInt(document.getElementById('ageFrom').value);
+  const to   = parseInt(document.getElementById('ageTo').value);
+  const el   = document.getElementById('ageGroupResult');
+
+  if (isNaN(from) || isNaN(to)) { el.innerHTML='<div class="empty-state">⚠️ Please enter both From and To age.</div>'; return; }
+  if (from > to) { el.innerHTML='<div class="empty-state">⚠️ "From" age cannot be greater than "To" age.</div>'; return; }
+
+  const list = getStudentList().filter(s=>{
+    const age=parseInt(s.age);
+    return !isNaN(age) && age>=from && age<=to;
+  }).sort((a,b)=>parseInt(a.age)-parseInt(b.age)||a.name.localeCompare(b.name));
+
+  if(!list.length){ el.innerHTML=`<div class="empty-state">No students found between age ${from} and ${to}.</div>`; return; }
+
+  const byAge={};
+  list.forEach(s=>{ const a=s.age||'?'; if(!byAge[a]) byAge[a]=[]; byAge[a].push(s); });
+
+  const colors=['#e8f5e9','#e3f2fd','#fff8e1','#fce4ec','#f3e5f5','#e0f2f1'];
+  const borders=['#52b788','#1976d2','#f9a825','#e91e63','#9c27b0','#009688'];
+
+  let html=`<div style="background:#2d6a4f;color:white;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600;">
+    Found <strong>${list.length} student${list.length!==1?'s':''}</strong> between age ${from}–${to}
+  </div>`;
+
+  Object.keys(byAge).sort((a,b)=>parseInt(a)-parseInt(b)).forEach((age,idx)=>{
+    const col=colors[idx%colors.length], bor=borders[idx%borders.length];
+    html+=`<div style="margin-bottom:12px;">
+      <div style="background:${bor};color:white;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;margin-bottom:6px;display:inline-block;">
+        Age ${age} — ${byAge[age].length} student${byAge[age].length!==1?'s':''}
+      </div>`;
+    byAge[age].forEach((s,i)=>{
+      html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${col};border:1.5px solid ${bor};border-radius:12px;margin-bottom:6px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:${bor};display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;flex-shrink:0;">${initials(s.name)}</div>
+        <div style="flex:1"><div style="font-size:16px;font-weight:700;color:#1a472a;">${s.name}</div><div style="font-size:11px;color:#444;margin-top:2px;">Age: ${s.age} yrs</div></div>
+        <div style="font-size:20px;font-weight:800;color:${bor};">#${i+1}</div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  el.innerHTML=html;
+};
+
+window.clearAgeFilter = function() {
+  document.getElementById('ageFrom').value='';
+  document.getElementById('ageTo').value='';
+  document.getElementById('ageGroupResult').innerHTML='';
+};
 
 // ── STARS ─────────────────────────────────────
 window.addStar    = k=>{ set(ref(db,'stars/'+k),(stars[k]||0)+1); };
@@ -368,10 +432,7 @@ function renderStars() {
       const starsDisplay='⭐'.repeat(Math.min(cnt,10))+(cnt>10?` +${cnt-10}`:'');
       return `<div class="star-card">
         <div class="avatar">${initials(s.name)}</div>
-        <div style="flex:1">
-          <div class="s-name">${s.name}</div>
-          <div style="font-size:14px;margin-top:3px">${cnt>0?starsDisplay:'No stars yet'}</div>
-        </div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div style="font-size:14px;margin-top:3px">${cnt>0?starsDisplay:'No stars yet'}</div></div>
         <div style="display:flex;align-items:center;gap:8px">
           <span class="star-count-display">${cnt}</span>
           <div class="star-controls">
@@ -388,8 +449,7 @@ function renderStars() {
 window.addPoints = (k,inputId)=>{
   const val=parseInt(document.getElementById(inputId).value)||0;
   if(val===0) return;
-  const cur=points[k]||0;
-  set(ref(db,'points/'+k),cur+val);
+  set(ref(db,'points/'+k),(points[k]||0)+val);
   document.getElementById(inputId).value='';
 };
 window.clearAllPoints = ()=>{
@@ -409,10 +469,7 @@ function renderPoints() {
       const inpId='pts_'+s.k;
       return `<div class="points-card">
         <div class="avatar">${initials(s.name)}</div>
-        <div style="flex:1">
-          <div class="s-name">${s.name}</div>
-          <div class="pts-session-note">Total: <strong>${pts} pts</strong></div>
-        </div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="pts-session-note">Total: <strong>${pts} pts</strong></div></div>
         <input type="number" id="${inpId}" class="pts-input" placeholder="+pts" min="0" onkeypress="if(event.key==='Enter')addPoints('${s.k}','${inpId}')"/>
         <button class="btn-pts btn-pts-add" onclick="addPoints('${s.k}','${inpId}')">Add</button>
       </div>`;
@@ -447,8 +504,7 @@ function renderRanking() {
   const maxDays=pastDays.length||1;
   const medals=['gold','silver','bronze'];
 
-  // Attendance ranking
-  const attRanked=[...list].map(s=>({ name:s.name, count:pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length })).sort((a,b)=>b.count-a.count);
+  const attRanked=[...list].map(s=>({name:s.name,count:pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length})).sort((a,b)=>b.count-a.count);
   attEl.innerHTML=attRanked.map((s,i)=>{
     const pct=Math.round(s.count/maxDays*100), m=medals[i]||null;
     const icon=m==='gold'?'🥇':m==='silver'?'🥈':m==='bronze'?'🥉':i+1;
@@ -464,7 +520,6 @@ function renderRanking() {
     </div>`;
   }).join('');
 
-  // Star ranking
   const starRanked=[...list].map(s=>({name:s.name,cnt:stars[s.k]||0})).sort((a,b)=>b.cnt-a.cnt);
   const maxStar=Math.max(...starRanked.map(s=>s.cnt),1);
   starEl.innerHTML=starRanked.map((s,i)=>{
@@ -488,11 +543,12 @@ window.showTab=(tab,btn)=>{
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
   btn.classList.add('active');
-  if(tab==='record') renderRecord();
-  if(tab==='ranking') renderRanking();
-  if(tab==='students') renderStudents();
-  if(tab==='stars') renderStars();
-  if(tab==='points') renderPoints();
+  if(tab==='record')    renderRecord();
+  if(tab==='ranking')   renderRanking();
+  if(tab==='students')  renderStudents();
+  if(tab==='stars')     renderStars();
+  if(tab==='points')    renderPoints();
+  if(tab==='agegroups') { document.getElementById('ageGroupResult').innerHTML=''; }
 };
 
 function renderAll() {

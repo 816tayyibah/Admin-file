@@ -783,45 +783,38 @@ function renderGroups() {
     el.innerHTML='<div class="empty-state">No teams yet. Create one above!</div>';
     return;
   }
-  // Sort by points for ranking
-  const sorted=[...list].map(([k,g])=>({k,g})).sort((a,b)=>(b.g.points||0)-(a.g.points||0));
-  const medals=['🥇','🥈','🥉'];
-  const maxPts=Math.max(...sorted.map(x=>x.g.points||0),1);
 
-  // Live ranking banner
-  if(rb){
-    rb.innerHTML=sorted.map(({k,g},i)=>{
-      const pts=g.points||0;
-      const pct=Math.round(pts/maxPts*100);
-      const medal=i<3?medals[i]:'#'+(i+1);
-      const color=i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'#e9ecef';
-      const textColor=i===0?'#1a472a':i===1?'#333':i===2?'white':'#555';
-      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${i<3?'#fffdf0':'#f8fdf8'};border:1.5px solid ${i<3?'#ffe082':'#e9ecef'};border-radius:10px;margin-bottom:5px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:${i<3?'16':'11'}px;font-weight:700;color:${textColor};flex-shrink:0;">${medal}</div>
-        <div style="flex:1;font-size:13px;font-weight:700;color:#1a472a;">${g.name}</div>
-        <div style="display:flex;align-items:center;gap:6px;flex:2;">
-          <div style="height:6px;flex:1;background:#e9ecef;border-radius:3px;overflow:hidden;">
-            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#ffd700,#f57f17);border-radius:3px;"></div>
-          </div>
-        </div>
-        <div style="font-size:14px;font-weight:800;color:${i===0?'#f57f17':i===1?'#888':i===2?'#cd7f32':'#2d6a4f'};min-width:50px;text-align:right;">${pts} pts</div>
-      </div>`;
-    }).join('');
-  }
+  // Build rank lookup (sorted by points) but display in ORIGINAL order
+  const medals=['🥇','🥈','🥉'];
+  const rankColors=['#ffd700','#c0c0c0','#cd7f32'];
+  const rankTextColors=['#1a472a','#333','white'];
+  const sorted=[...list].map(([k,g])=>({k,pts:g.points||0})).sort((a,b)=>b.pts-a.pts);
+  const rankMap={};
+  sorted.forEach(({k},i)=>rankMap[k]=i); // k -> rank index
+
+  if(rb) rb.innerHTML=''; // hide top banner — rank shown inline
 
   const studentList=getStudentList();
-  el.innerHTML=sorted.map(({k,g})=>{
+  // Keep ORIGINAL insertion order
+  el.innerHTML=list.map(([k,g])=>{
     const members=g.members||[];
     const pts=g.points||0;
     const inpId='gpts_'+k;
     const selId='gsel_'+k;
+    const ri=rankMap[k];
+    const medal=ri<3?medals[ri]:'#'+(ri+1);
+    const badgeBg=ri<3?rankColors[ri]:'#e9ecef';
+    const badgeText=ri<3?rankTextColors[ri]:'#555';
     const memberOptions=studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');
     const memberChips=members.map(m=>`<span class="member-chip">${m.name}<button class="btn-remove-member" onclick="removeMemberFromGroup('${k}','${m.k}')">✕</button></span>`).join('');
-    return `<div class="group-card">
+    return `<div class="group-card" style="border-left:4px solid ${ri===0?'#ffd700':ri===1?'#c0c0c0':ri===2?'#cd7f32':'#c8e6c9'};">
       <div class="group-header">
-        <div>
-          <div class="group-name">👥 ${g.name}</div>
-          <div style="font-size:11px;color:#666;margin-top:2px;">${members.length} member${members.length!==1?'s':''}</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:${badgeBg};display:flex;align-items:center;justify-content:center;font-size:${ri<3?'17':'12'}px;font-weight:800;color:${badgeText};flex-shrink:0;">${medal}</div>
+          <div>
+            <div class="group-name">👥 ${g.name}</div>
+            <div style="font-size:11px;color:#666;margin-top:2px;">${members.length} member${members.length!==1?'s':''}</div>
+          </div>
         </div>
         <div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <div class="group-pts">${pts} pts</div>
@@ -905,38 +898,33 @@ function renderPairs() {
   const medals=['🥇','🥈','🥉'];
   const maxPts=Math.max(...sorted.map(x=>x.p.points||0),1);
 
-  // Live ranking banner
-  if(rb){
-    rb.innerHTML=sorted.map(({k,p},i)=>{
-      const pts=p.points||0;
-      const pct=Math.round(pts/maxPts*100);
-      const medal=i<3?medals[i]:'#'+(i+1);
-      const color=i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'#e9ecef';
-      const textColor=i===0?'#1a472a':i===1?'#333':i===2?'white':'#555';
-      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${i<3?'#f0f4ff':'#f8fdf8'};border:1.5px solid ${i<3?'#90caf9':'#e9ecef'};border-radius:10px;margin-bottom:5px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:${i<3?'16':'11'}px;font-weight:700;color:${textColor};flex-shrink:0;">${medal}</div>
-        <div style="flex:1;font-size:13px;font-weight:700;color:#1565c0;">${p.name} <span style="font-size:11px;font-weight:400;color:#555;">(${p.s1&&p.s1.name||'?'} vs ${p.s2&&p.s2.name||'?'})</span></div>
-        <div style="display:flex;align-items:center;gap:6px;flex:1;">
-          <div style="height:6px;flex:1;background:#e9ecef;border-radius:3px;overflow:hidden;">
-            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#1976d2,#42a5f5);border-radius:3px;"></div>
-          </div>
-        </div>
-        <div style="font-size:14px;font-weight:800;color:#1565c0;min-width:50px;text-align:right;">${pts} pts</div>
-      </div>`;
-    }).join('');
-  }
+  if(rb) rb.innerHTML=''; // rank shown inline per pair
 
-  el.innerHTML=sorted.map(({k,p})=>{
+  // rank lookup
+  const rankMap2={};
+  sorted.forEach(({k},i)=>rankMap2[k]=i);
+
+  el.innerHTML=list.map(([k,p])=>{
     const pts=p.points||0;
     const inpId='ppts_'+k;
-    return `<div class="pair-card">
+    const ri2=rankMap2[k];
+    const medals2=['🥇','🥈','🥉'];
+    const rColors2=['#ffd700','#c0c0c0','#cd7f32'];
+    const rText2=['#1a472a','#333','white'];
+    const badgeBg2=ri2<3?rColors2[ri2]:'#e9ecef';
+    const badgeText2=ri2<3?rText2[ri2]:'#555';
+    const medal2=ri2<3?medals2[ri2]:'#'+(ri2+1);
+    return `<div class="pair-card" style="border-left:4px solid ${ri2===0?'#ffd700':ri2===1?'#c0c0c0':ri2===2?'#cd7f32':'#90caf9'};">
       <div class="group-header">
-        <div>
-          <div class="group-name" style="color:#1565c0;">🤝 ${p.name}</div>
-          <div style="margin-top:6px;">
-            <span class="member-chip-pair">${p.s1&&p.s1.name||'?'}</span>
-            <span style="font-size:12px;color:#888;font-weight:700;">vs</span>
-            <span class="member-chip-pair">${p.s2&&p.s2.name||'?'}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:${badgeBg2};display:flex;align-items:center;justify-content:center;font-size:${ri2<3?'17':'12'}px;font-weight:800;color:${badgeText2};flex-shrink:0;">${medal2}</div>
+          <div>
+            <div class="group-name" style="color:#1565c0;">🤝 ${p.name}</div>
+            <div style="margin-top:4px;">
+              <span class="member-chip-pair">${p.s1&&p.s1.name||'?'}</span>
+              <span style="font-size:12px;color:#888;font-weight:700;">vs</span>
+              <span class="member-chip-pair">${p.s2&&p.s2.name||'?'}</span>
+            </div>
           </div>
         </div>
         <div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">

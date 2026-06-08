@@ -280,7 +280,10 @@
       </div>
     </div>
     <div class="card">
-      <div class="card-title">🏆 Live Ranking — Teams</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="card-title" style="margin-bottom:0;">🏆 Live Ranking — Teams</div>
+        <button onclick="deleteAllGroups()" style="padding:6px 12px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete All</button>
+      </div>
       <div id="groupRankingBanner" style="margin-bottom:10px;"></div>
       <div id="groupsList"><div class="empty-state">No teams yet.</div></div>
     </div>
@@ -304,7 +307,10 @@
       </div>
     </div>
     <div class="card">
-      <div class="card-title">🏆 Live Ranking — Pairs</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="card-title" style="margin-bottom:0;">🏆 Live Ranking — Pairs</div>
+        <button onclick="deleteAllPairs()" style="padding:6px 12px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete All</button>
+      </div>
       <div id="pairRankingBanner" style="margin-bottom:10px;"></div>
       <div id="pairsList"><div class="empty-state">No pairs yet.</div></div>
     </div>
@@ -1169,6 +1175,20 @@ window.saveAutoGroupsNow = function() {
   },1200);
 };
 
+
+window.deleteAllGroups = function() {
+  const count = Object.keys(customGroups).length;
+  if(!count){ alert('No teams to delete!'); return; }
+  if(!confirm('Delete ALL ' + count + ' teams? This cannot be undone.')) return;
+  set(ref(db,'customGroups'), null);
+};
+
+window.deleteAllPairs = function() {
+  const count = Object.keys(customPairs).length;
+  if(!count){ alert('No pairs to delete!'); return; }
+  if(!confirm('Delete ALL ' + count + ' pairs? This cannot be undone.')) return;
+  set(ref(db,'customPairs'), null);
+};
 
 function renderAll() {
   renderSummary(); renderAttendance();

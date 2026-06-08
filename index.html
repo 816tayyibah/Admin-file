@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -262,10 +263,8 @@
 
 <!-- COMPETITION -->
 <div id="tab-competition" class="section">
-
-  <!-- Sub-tabs -->
   <div class="nav-tabs" style="margin-bottom:10px;">
-    <button class="sub-tab active" onclick="showSubTab('groups',this)" id="subtab-groups">👥 Groups / Teams</button>
+    <button class="sub-tab active" onclick="showSubTab('groups',this)" id="subtab-groups">👥 Groups</button>
     <button class="sub-tab" onclick="showSubTab('pairs',this)" id="subtab-pairs">🤝 Pairs</button>
     <button class="sub-tab" onclick="showSubTab('autogroup',this)" id="subtab-autogroup">⚡ Auto-Make</button>
   </div>
@@ -273,15 +272,16 @@
   <!-- GROUPS -->
   <div class="sub-section" id="sub-groups">
     <div class="card">
-      <div class="card-title">👥 Create a Team / Group</div>
-      <p class="section-note">Give a team name, then add members one by one. Add points during any game.</p>
-      <div class="add-row" style="margin-bottom:8px;">
-        <input type="text" id="newGroupName" placeholder="Team name (e.g. Lions, Team A)..." onkeypress="if(event.key==='Enter')createGroup()"/>
+      <div class="card-title">👥 Create a Team</div>
+      <p class="section-note">Team naam dein, phir students add karen. Game mein points add karen — ranking khud update hogi!</p>
+      <div class="add-row">
+        <input type="text" id="newGroupName" placeholder="Team name (e.g. Lions, Eagles)..." onkeypress="if(event.key==='Enter')createGroup()"/>
         <button class="btn-add" onclick="createGroup()">+ Create</button>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">📋 All Teams</div>
+      <div class="card-title">🏆 Live Ranking — Teams</div>
+      <div id="groupRankingBanner" style="margin-bottom:10px;"></div>
       <div id="groupsList"><div class="empty-state">No teams yet.</div></div>
     </div>
   </div>
@@ -289,8 +289,8 @@
   <!-- PAIRS -->
   <div class="sub-section" id="sub-pairs" style="display:none;">
     <div class="card">
-      <div class="card-title">🤝 Create a Pair (2 students)</div>
-      <p class="section-note">Select any two students for a head-to-head competition.</p>
+      <div class="card-title">🤝 Create a Pair</div>
+      <p class="section-note">Do students ka pair banayein aur points track karen — ranking live update hogi!</p>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <input type="text" id="newPairName" placeholder="Pair name (e.g. Round 1)..."
           style="padding:10px 12px;border:2px solid #2d6a4f;border-radius:10px;font-size:14px;outline:none;"/>
@@ -304,7 +304,8 @@
       </div>
     </div>
     <div class="card">
-      <div class="card-title">📋 All Pairs</div>
+      <div class="card-title">🏆 Live Ranking — Pairs</div>
+      <div id="pairRankingBanner" style="margin-bottom:10px;"></div>
       <div id="pairsList"><div class="empty-state">No pairs yet.</div></div>
     </div>
   </div>
@@ -312,58 +313,48 @@
   <!-- AUTO-MAKE -->
   <div class="sub-section" id="sub-autogroup" style="display:none;">
     <div class="card">
-      <div class="card-title">⚡ Auto-Make Teams or Pairs</div>
-      <p class="section-note">Automatically create balanced teams from students. Filter by age or use all.</p>
-
+      <div class="card-title">⚡ Auto-Make Teams</div>
+      <p class="section-note">Age filter lagayein ya sab students use karen. Teams generate karen, save karen — phir Groups tab mein points add karen!</p>
       <div style="margin-bottom:12px;">
         <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:6px;">Filter by Age (optional)</div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <input type="number" id="autoAgeFrom" placeholder="Age from" min="1" max="20"
-            style="width:90px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;"/>
+            style="width:80px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;"/>
           <span style="color:#555;font-size:13px;">to</span>
           <input type="number" id="autoAgeTo" placeholder="Age to" min="1" max="20"
-            style="width:90px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;"/>
+            style="width:80px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;"/>
           <button onclick="previewAutoStudents()" style="padding:8px 14px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Filter</button>
           <button onclick="clearAutoFilter()" style="padding:8px 10px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:12px;cursor:pointer;">Clear</button>
         </div>
         <div id="autoFilteredList" style="margin-top:8px;"></div>
       </div>
-
       <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:8px;">How to divide?</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
         <button onclick="setAutoMode('pairs')" id="autoModePairs"
-          style="flex:1;min-width:100px;padding:10px 8px;border:2px solid #c8e6c9;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
-          🤝 Everyone in Pairs<br><span style="font-size:10px;font-weight:400;">2 students each</span>
-        </button>
+          style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
+          🤝 Pairs<br><span style="font-size:9px;font-weight:400;">2 each</span></button>
         <button onclick="setAutoMode('3')" id="autoMode3"
-          style="flex:1;min-width:100px;padding:10px 8px;border:2px solid #c8e6c9;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
-          👥 Groups of 3<br><span style="font-size:10px;font-weight:400;">3 students each</span>
-        </button>
+          style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
+          👥 Groups of 3<br><span style="font-size:9px;font-weight:400;">3 each</span></button>
         <button onclick="setAutoMode('2teams')" id="autoMode2teams"
-          style="flex:1;min-width:100px;padding:10px 8px;border:2px solid #c8e6c9;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
-          🏆 2 Equal Teams<br><span style="font-size:10px;font-weight:400;">Half & half</span>
-        </button>
+          style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
+          🏆 2 Teams<br><span style="font-size:9px;font-weight:400;">Half & half</span></button>
         <button onclick="setAutoMode('custom')" id="autoModeCustom"
-          style="flex:1;min-width:100px;padding:10px 8px;border:2px solid #c8e6c9;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
-          ✏️ Custom Size<br><span style="font-size:10px;font-weight:400;">You choose</span>
-        </button>
+          style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">
+          ✏️ Custom<br><span style="font-size:9px;font-weight:400;">You choose</span></button>
       </div>
-
       <div id="customSizeRow" style="display:none;margin-bottom:10px;">
         <input type="number" id="customGroupSize" placeholder="Students per group (e.g. 4)" min="2" max="20"
           style="width:100%;padding:9px 12px;border:2px solid #2d6a4f;border-radius:10px;font-size:14px;outline:none;"/>
       </div>
-
       <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input type="text" id="autoTeamPrefix" placeholder="Team name prefix (e.g. Team, Lions)" value="Team"
+        <input type="text" id="autoTeamPrefix" placeholder="Team name prefix" value="Team"
           style="flex:1;padding:9px 12px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;"/>
         <button onclick="generateAutoGroups()" style="padding:9px 16px;background:#ffd700;color:#1a472a;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;">⚡ Generate!</button>
       </div>
-
       <div id="autoPreviewArea"></div>
     </div>
   </div>
-
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -783,30 +774,61 @@ window.removeMemberFromGroup = function(gk, mk) {
 };
 
 function renderGroups() {
-  const el = document.getElementById('groupsList');
+  const el=document.getElementById('groupsList');
+  const rb=document.getElementById('groupRankingBanner');
   if(!el) return;
-  const list = Object.entries(customGroups);
-  if(!list.length) { el.innerHTML='<div class="empty-state">No groups yet. Create one above!</div>'; return; }
-  const studentList = getStudentList();
-  el.innerHTML = list.map(([k,g])=>{
-    const members = g.members||[];
-    const pts = g.points||0;
-    const inpId = 'gpts_'+k;
-    const selId = 'gsel_'+k;
-    const memberOptions = studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');
-    const memberChips = members.map(m=>`<span class="member-chip">${m.name}<button class="btn-remove-member" onclick="removeMemberFromGroup('${k}','${m.k}')">✕</button></span>`).join('');
+  const list=Object.entries(customGroups);
+  if(!list.length){
+    if(rb) rb.innerHTML='';
+    el.innerHTML='<div class="empty-state">No teams yet. Create one above!</div>';
+    return;
+  }
+  // Sort by points for ranking
+  const sorted=[...list].map(([k,g])=>({k,g})).sort((a,b)=>(b.g.points||0)-(a.g.points||0));
+  const medals=['🥇','🥈','🥉'];
+  const maxPts=Math.max(...sorted.map(x=>x.g.points||0),1);
+
+  // Live ranking banner
+  if(rb){
+    rb.innerHTML=sorted.map(({k,g},i)=>{
+      const pts=g.points||0;
+      const pct=Math.round(pts/maxPts*100);
+      const medal=i<3?medals[i]:'#'+(i+1);
+      const color=i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'#e9ecef';
+      const textColor=i===0?'#1a472a':i===1?'#333':i===2?'white':'#555';
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${i<3?'#fffdf0':'#f8fdf8'};border:1.5px solid ${i<3?'#ffe082':'#e9ecef'};border-radius:10px;margin-bottom:5px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:${i<3?'16':'11'}px;font-weight:700;color:${textColor};flex-shrink:0;">${medal}</div>
+        <div style="flex:1;font-size:13px;font-weight:700;color:#1a472a;">${g.name}</div>
+        <div style="display:flex;align-items:center;gap:6px;flex:2;">
+          <div style="height:6px;flex:1;background:#e9ecef;border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#ffd700,#f57f17);border-radius:3px;"></div>
+          </div>
+        </div>
+        <div style="font-size:14px;font-weight:800;color:${i===0?'#f57f17':i===1?'#888':i===2?'#cd7f32':'#2d6a4f'};min-width:50px;text-align:right;">${pts} pts</div>
+      </div>`;
+    }).join('');
+  }
+
+  const studentList=getStudentList();
+  el.innerHTML=sorted.map(({k,g})=>{
+    const members=g.members||[];
+    const pts=g.points||0;
+    const inpId='gpts_'+k;
+    const selId='gsel_'+k;
+    const memberOptions=studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');
+    const memberChips=members.map(m=>`<span class="member-chip">${m.name}<button class="btn-remove-member" onclick="removeMemberFromGroup('${k}','${m.k}')">✕</button></span>`).join('');
     return `<div class="group-card">
       <div class="group-header">
         <div>
           <div class="group-name">👥 ${g.name}</div>
           <div style="font-size:11px;color:#666;margin-top:2px;">${members.length} member${members.length!==1?'s':''}</div>
         </div>
-        <div style="text-align:right">
+        <div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <div class="group-pts">${pts} pts</div>
           <button class="btn-del-group" onclick="deleteGroup('${k}')">🗑 Delete</button>
         </div>
       </div>
-      <div>${memberChips||'<span style="font-size:12px;color:#888;">No members yet</span>'}</div>
+      <div style="margin-bottom:8px;">${memberChips||'<span style="font-size:12px;color:#888;">No members yet</span>'}</div>
       <div class="add-member-row">
         <select id="${selId}" style="flex:1;padding:7px 10px;border:2px solid #c8e6c9;border-radius:8px;font-size:13px;outline:none;background:white;">
           <option value="">+ Add student</option>${memberOptions}
@@ -814,14 +836,19 @@ function renderGroups() {
         <button onclick="addMemberToGroup('${k}','${selId}')" style="padding:7px 12px;background:#2d6a4f;color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Add</button>
       </div>
       <div class="pts-row">
-        <span style="font-size:12px;font-weight:600;color:#555;">Add Points:</span>
+        <span style="font-size:12px;font-weight:600;color:#555;">Points:</span>
         <input type="number" id="${inpId}" class="pts-small-input" placeholder="+pts" onkeypress="if(event.key==='Enter')addGroupPoints('${k}','${inpId}')"/>
         <button class="btn-add-pts" onclick="addGroupPoints('${k}','${inpId}')">Add</button>
-        <button onclick="set(ref(db,'customGroups/${k}/points'),0)" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;cursor:pointer;">Reset</button>
+        <button onclick="resetGroupPoints('${k}')" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">Reset</button>
       </div>
     </div>`;
   }).join('');
 }
+
+window.resetGroupPoints = function(k) {
+  if(!confirm('Reset points for this team to 0?')) return;
+  set(ref(db,'customGroups/'+k+'/points'),0);
+};
 
 // ── PAIRS ─────────────────────────────────────
 window.createPair = function() {
@@ -855,47 +882,83 @@ window.addPairPoints = function(k, inputId) {
 };
 
 function renderPairs() {
-  const el = document.getElementById('pairsList');
+  const el=document.getElementById('pairsList');
+  const rb=document.getElementById('pairRankingBanner');
   if(!el) return;
 
-  // Update dropdowns
-  const studentList = getStudentList();
-  const opts = '<option value="">Select student</option>' + studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');
-  const sel1 = document.getElementById('pairStudent1');
-  const sel2 = document.getElementById('pairStudent2');
-  if(sel1) sel1.innerHTML = opts;
-  if(sel2) sel2.innerHTML = opts;
+  const studentList=getStudentList();
+  const opts='<option value="">Select student</option>'+studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');
+  const sel1=document.getElementById('pairStudent1');
+  const sel2=document.getElementById('pairStudent2');
+  if(sel1) sel1.innerHTML=opts;
+  if(sel2) sel2.innerHTML=opts;
 
-  const list = Object.entries(customPairs);
-  if(!list.length) { el.innerHTML='<div class="empty-state">No pairs yet. Create one above!</div>'; return; }
+  const list=Object.entries(customPairs);
+  if(!list.length){
+    if(rb) rb.innerHTML='';
+    el.innerHTML='<div class="empty-state">No pairs yet. Create one above!</div>';
+    return;
+  }
 
-  el.innerHTML = list.map(([k,p])=>{
-    const pts = p.points||0;
-    const inpId = 'ppts_'+k;
+  // Sort by points
+  const sorted=[...list].map(([k,p])=>({k,p})).sort((a,b)=>(b.p.points||0)-(a.p.points||0));
+  const medals=['🥇','🥈','🥉'];
+  const maxPts=Math.max(...sorted.map(x=>x.p.points||0),1);
+
+  // Live ranking banner
+  if(rb){
+    rb.innerHTML=sorted.map(({k,p},i)=>{
+      const pts=p.points||0;
+      const pct=Math.round(pts/maxPts*100);
+      const medal=i<3?medals[i]:'#'+(i+1);
+      const color=i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'#e9ecef';
+      const textColor=i===0?'#1a472a':i===1?'#333':i===2?'white':'#555';
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:${i<3?'#f0f4ff':'#f8fdf8'};border:1.5px solid ${i<3?'#90caf9':'#e9ecef'};border-radius:10px;margin-bottom:5px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:${i<3?'16':'11'}px;font-weight:700;color:${textColor};flex-shrink:0;">${medal}</div>
+        <div style="flex:1;font-size:13px;font-weight:700;color:#1565c0;">${p.name} <span style="font-size:11px;font-weight:400;color:#555;">(${p.s1&&p.s1.name||'?'} vs ${p.s2&&p.s2.name||'?'})</span></div>
+        <div style="display:flex;align-items:center;gap:6px;flex:1;">
+          <div style="height:6px;flex:1;background:#e9ecef;border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#1976d2,#42a5f5);border-radius:3px;"></div>
+          </div>
+        </div>
+        <div style="font-size:14px;font-weight:800;color:#1565c0;min-width:50px;text-align:right;">${pts} pts</div>
+      </div>`;
+    }).join('');
+  }
+
+  el.innerHTML=sorted.map(({k,p})=>{
+    const pts=p.points||0;
+    const inpId='ppts_'+k;
     return `<div class="pair-card">
       <div class="group-header">
         <div>
           <div class="group-name" style="color:#1565c0;">🤝 ${p.name}</div>
           <div style="margin-top:6px;">
             <span class="member-chip-pair">${p.s1&&p.s1.name||'?'}</span>
-            <span style="font-size:13px;color:#888;font-weight:700;">vs</span>
+            <span style="font-size:12px;color:#888;font-weight:700;">vs</span>
             <span class="member-chip-pair">${p.s2&&p.s2.name||'?'}</span>
           </div>
         </div>
-        <div style="text-align:right">
+        <div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <div class="group-pts" style="color:#1565c0;">${pts} pts</div>
           <button class="btn-del-group" onclick="deletePair('${k}')">🗑 Delete</button>
         </div>
       </div>
       <div class="pts-row">
-        <span style="font-size:12px;font-weight:600;color:#555;">Add Points:</span>
+        <span style="font-size:12px;font-weight:600;color:#555;">Points:</span>
         <input type="number" id="${inpId}" class="pts-small-input" placeholder="+pts" onkeypress="if(event.key==='Enter')addPairPoints('${k}','${inpId}')"/>
         <button class="btn-add-pts" style="background:#1976d2;" onclick="addPairPoints('${k}','${inpId}')">Add</button>
-        <button onclick="set(ref(db,'customPairs/${k}/points'),0)" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;cursor:pointer;">Reset</button>
+        <button onclick="resetPairPoints('${k}')" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">Reset</button>
       </div>
     </div>`;
   }).join('');
 }
+
+window.resetPairPoints = function(k) {
+  if(!confirm('Reset points for this pair to 0?')) return;
+  set(ref(db,'customPairs/'+k+'/points'),0);
+};
+
 
 window.showTab=(tab,btn)=>{
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -1039,94 +1102,85 @@ window.copyLink=function(link,btn){
 
 // ── AUTO-GROUP / COMPETITION ──────────────────────
 let autoMode = 'pairs';
-let autoFilteredStudents = null; // null = use all
+let autoFilteredStudents = null;
 
 window.setAutoMode = function(mode) {
   autoMode = mode;
-  ['pairs','3','2teams','custom'].forEach(m => {
-    const btn = document.getElementById('autoMode'+m.charAt(0).toUpperCase()+m.slice(1));
-    if(btn) { btn.style.background = m===mode ? '#2d6a4f' : '#f8fdf8'; btn.style.color = m===mode ? 'white' : '#1a472a'; btn.style.borderColor = m===mode ? '#2d6a4f' : '#c8e6c9'; }
+  ['Pairs','3','2teams','Custom'].forEach(m => {
+    const id = 'autoMode' + m;
+    const btn = document.getElementById(id);
+    if(btn){ btn.style.background = m.toLowerCase()===mode||('pairs'===mode&&m==='Pairs')||('custom'===mode&&m==='Custom') ? '#2d6a4f':'#f8fdf8';
+             btn.style.color = btn.style.background==='#2d6a4f'?'white':'#1a472a';
+             btn.style.borderColor = btn.style.background==='#2d6a4f'?'#2d6a4f':'#c8e6c9'; }
   });
-  document.getElementById('customSizeRow').style.display = mode==='custom' ? 'block' : 'none';
+  document.getElementById('customSizeRow').style.display = mode==='custom'?'block':'none';
 };
 
 window.previewAutoStudents = function() {
-  const from = parseInt(document.getElementById('autoAgeFrom').value);
-  const to   = parseInt(document.getElementById('autoAgeTo').value);
-  const el   = document.getElementById('autoFilteredList');
-  let list   = getStudentList();
-
-  if(!isNaN(from) && !isNaN(to)) {
-    list = list.filter(s => { const a=parseInt(s.age); return !isNaN(a) && a>=from && a<=to; });
-  }
-  autoFilteredStudents = list.length ? list : null;
-
-  if(!list.length) { el.innerHTML='<div class="empty-state">No students match this age range.</div>'; return; }
-  el.innerHTML = `<div style="background:#e8f5e9;border-radius:10px;padding:8px 12px;font-size:12px;color:#1a472a;font-weight:600;">
-    ✅ ${list.length} student${list.length!==1?'s':''} selected: ${list.map(s=>s.name).join(', ')}
-  </div>`;
+  const from=parseInt(document.getElementById('autoAgeFrom').value);
+  const to=parseInt(document.getElementById('autoAgeTo').value);
+  const el=document.getElementById('autoFilteredList');
+  let list=getStudentList();
+  if(!isNaN(from)&&!isNaN(to)) list=list.filter(s=>{const a=parseInt(s.age);return !isNaN(a)&&a>=from&&a<=to;});
+  autoFilteredStudents=list.length?list:null;
+  if(!list.length){el.innerHTML='<div class="empty-state">No students match.</div>';return;}
+  el.innerHTML=`<div style="background:#e8f5e9;border-radius:10px;padding:8px 12px;font-size:12px;color:#1a472a;font-weight:600;">✅ ${list.length} students: ${list.map(s=>s.name).join(', ')}</div>`;
 };
 
-window.clearAutoFilter = function() {
+window.clearAutoFilter=function(){
   document.getElementById('autoAgeFrom').value='';
   document.getElementById('autoAgeTo').value='';
   document.getElementById('autoFilteredList').innerHTML='';
-  autoFilteredStudents = null;
+  autoFilteredStudents=null;
 };
 
-window.generateAutoGroups = function() {
-  const list = autoFilteredStudents || getStudentList();
-  if(list.length < 2) { alert('Need at least 2 students!'); return; }
-
-  const prefix = document.getElementById('autoTeamPrefix').value.trim() || 'Team';
-  const preview = document.getElementById('autoPreviewArea');
-
-  // Shuffle randomly
-  const shuffled = [...list].sort(()=>Math.random()-0.5);
-  let groups = [];
-
-  if(autoMode==='pairs') {
-    for(let i=0;i<shuffled.length;i+=2) groups.push(shuffled.slice(i,i+2));
-  } else if(autoMode==='3') {
-    for(let i=0;i<shuffled.length;i+=3) groups.push(shuffled.slice(i,i+3));
-  } else if(autoMode==='2teams') {
-    const half = Math.ceil(shuffled.length/2);
-    groups = [shuffled.slice(0,half), shuffled.slice(half)];
-  } else if(autoMode==='custom') {
-    const size = parseInt(document.getElementById('customGroupSize').value)||2;
-    for(let i=0;i<shuffled.length;i+=size) groups.push(shuffled.slice(i,i+size));
-  }
-
+window.generateAutoGroups=function(){
+  const list=autoFilteredStudents||getStudentList();
+  if(list.length<2){alert('Need at least 2 students!');return;}
+  const prefix=document.getElementById('autoTeamPrefix').value.trim()||'Team';
+  const shuffled=[...list].sort(()=>Math.random()-0.5);
+  let groups=[];
+  if(autoMode==='pairs') for(let i=0;i<shuffled.length;i+=2) groups.push(shuffled.slice(i,i+2));
+  else if(autoMode==='3') for(let i=0;i<shuffled.length;i+=3) groups.push(shuffled.slice(i,i+3));
+  else if(autoMode==='2teams'){const h=Math.ceil(shuffled.length/2);groups=[shuffled.slice(0,h),shuffled.slice(h)];}
+  else if(autoMode==='custom'){const sz=parseInt(document.getElementById('customGroupSize').value)||2;for(let i=0;i<shuffled.length;i+=sz)groups.push(shuffled.slice(i,i+sz));}
   const colors=['#e8f5e9','#e3f2fd','#fff8e1','#fce4ec','#f3e5f5','#e0f2f1'];
   const borders=['#52b788','#1976d2','#f9a825','#e91e63','#9c27b0','#009688'];
-
-  preview.innerHTML = `
+  const preview=document.getElementById('autoPreviewArea');
+  const groupsData=groups.map((g,i)=>({name:prefix+' '+(i+1),members:g}));
+  preview.innerHTML=`
     <div style="background:#2d6a4f;color:white;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">
-      Preview — ${groups.length} group${groups.length!==1?'s':''} from ${list.length} students
+      Preview — ${groups.length} groups from ${list.length} students
     </div>
     ${groups.map((g,i)=>`
       <div style="background:${colors[i%colors.length]};border:1.5px solid ${borders[i%borders.length]};border-radius:12px;padding:10px 12px;margin-bottom:8px;">
         <div style="font-size:13px;font-weight:800;color:#1a472a;margin-bottom:6px;">${prefix} ${i+1} (${g.length} members)</div>
-        <div>${g.map(s=>`<span style="display:inline-flex;align-items:center;gap:4px;background:white;border:1px solid ${borders[i%borders.length]};border-radius:16px;padding:3px 10px;margin:2px;font-size:12px;font-weight:600;color:#1a472a;">${s.name}</span>`).join('')}</div>
+        <div>${g.map(s=>`<span style="display:inline-flex;background:white;border:1px solid ${borders[i%borders.length]};border-radius:16px;padding:3px 10px;margin:2px;font-size:12px;font-weight:600;color:#1a472a;">${s.name}</span>`).join('')}</div>
       </div>`).join('')}
-    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+    <div style="display:flex;gap:8px;margin-top:10px;">
       <button onclick="generateAutoGroups()" style="flex:1;padding:9px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">🔀 Reshuffle</button>
-      <button onclick="saveAutoGroups(${JSON.stringify(groups.map((g,i)=>({name:prefix+' '+(i+1),members:g})))})" style="flex:1;padding:9px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">✅ Save All Teams</button>
+      <button onclick="saveAutoGroupsNow()" style="flex:1;padding:9px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">✅ Save All Teams</button>
     </div>`;
+  window._pendingAutoGroups = groupsData;
 };
 
-window.saveAutoGroups = function(groupsData) {
-  if(!confirm('Save these ' + groupsData.length + ' teams to Firebase? They will appear in Groups tab.')) return;
-  groupsData.forEach(g => {
-    const k = 'grp_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-    const members = g.members.map(s=>({k:s.k,name:s.name}));
-    set(ref(db,'customGroups/'+k), {name:g.name, members, points:0});
+window.saveAutoGroupsNow = function() {
+  const groupsData = window._pendingAutoGroups;
+  if(!groupsData||!groupsData.length){alert('Please generate teams first!');return;}
+  if(!confirm('Save '+groupsData.length+' teams? They will appear in Groups tab with points.')) return;
+  groupsData.forEach(g=>{
+    const k='grp_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
+    set(ref(db,'customGroups/'+k),{name:g.name,members:g.members.map(s=>({k:s.k,name:s.name})),points:0});
   });
-  alert('✅ Teams saved! Go to Groups tab to see them and add points.');
-  showSubTab('groups', document.getElementById('subtab-groups'));
-  document.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('subtab-groups').classList.add('active');
+  document.getElementById('autoPreviewArea').innerHTML='<div style="background:#e8f5e9;border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:700;color:#1a472a;">✅ Teams saved! Go to Groups tab to add points.</div>';
+  window._pendingAutoGroups=null;
+  setTimeout(()=>{
+    showSubTab('groups',document.getElementById('subtab-groups'));
+    document.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('subtab-groups').classList.add('active');
+  },1200);
 };
+
 
 function renderAll() {
   renderSummary(); renderAttendance();

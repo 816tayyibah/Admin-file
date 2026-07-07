@@ -854,8 +854,8 @@ function renderAll() {
 }
 
 // ── SUNNAH ADMIN ─────────────────────────────────
-const SUNNAH_ALL_CATS=[{id:'eating',sunnahs:5},{id:'washroom',sunnahs:6},{id:'traveling',sunnahs:6},{id:'wudu',sunnahs:6},{id:'sleeping',sunnahs:7}];
-const SUNNAH_WEEK_CATS=[['eating'],['eating','washroom'],['eating','washroom','traveling'],['eating','washroom','traveling','wudu'],['eating','washroom','traveling','wudu','sleeping']];
+const SUNNAH_ALL_CATS=[{id:'eating',sunnahs:5},{id:'Bathroom',sunnahs:6},{id:'traveling',sunnahs:6},{id:'wudu',sunnahs:6},{id:'sleeping',sunnahs:7}];
+const SUNNAH_WEEK_CATS=[['eating'],['eating','Bathroom'],['eating','Bathroom','traveling'],['eating','Bathroom','traveling','wudu'],['eating','Bathroom','traveling','wudu','sleeping']];
 function sunnahMaxForWeek(wi){ return SUNNAH_WEEK_CATS[wi].map(id=>SUNNAH_ALL_CATS.find(c=>c.id===id).sunnahs).reduce((a,b)=>a+b,0)*7; }
 const SUNNAH_WEEKS=[];
 {const start=new Date(2026,5,29);for(let w=0;w<5;w++){const wStart=new Date(start);wStart.setDate(start.getDate()+w*7);const wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);const capEnd=new Date(2026,6,31);SUNNAH_WEEKS.push({num:w+1,start:new Date(wStart),end:wEnd>capEnd?capEnd:wEnd});}}

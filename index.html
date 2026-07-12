@@ -439,9 +439,7 @@ function fmtDisplay(d) {
 function fmtShort(d) { return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
 function isCampDay(d) { return campDays.some(c=>fmtKey(c)===fmtKey(d)); }
 function initials(n) { return n.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
-// FIX: unique key using timestamp + random, no name-based collision
 function uniqueKey() { return 'stu_' + Date.now() + '_' + Math.random().toString(36).slice(2,6); }
-// FIX: safe HTML attribute encoding
 function esc(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 
 let students={}, attendance={}, stars={}, points={};
@@ -517,7 +515,6 @@ function renderAttendance() {
     }).join('');
   }).join('');
 
-  // FIX: Absent list panel
   const absentStudents=list.filter(s=>att[s.k]!==1);
   if(absentStudents.length){
     absentPanel.innerHTML=`<div class="absent-list">
@@ -545,7 +542,6 @@ function renderSummary() {
 }
 
 // ── STUDENTS ──────────────────────────────────
-// FIX: age field + unique key + proper validation
 window.addStudent = ()=>{
   const inp    = document.getElementById('studentInput');
   const ageInp = document.getElementById('studentAge');
@@ -560,7 +556,6 @@ window.addStudent = ()=>{
   inp.focus();
 };
 
-// FIX: bulk import
 window.bulkAddStudents = ()=>{
   const raw = document.getElementById('bulkInput').value.trim();
   if(!raw){ alert('Please paste student names first!'); return; }
@@ -583,13 +578,11 @@ window.bulkAddStudents = ()=>{
   alert(msg);
 };
 
-// FIX: delete also cleans up attendance, stars, points
 window.removeStudent=(k,name)=>{
   if(!confirm('Remove '+name+'?\n\nThis will also delete their attendance, stars and points.')) return;
   remove(ref(db,'students/'+k));
   remove(ref(db,'stars/'+k));
   remove(ref(db,'points/'+k));
-  // Remove from all attendance days
   campDays.forEach(d=>{
     const dk=fmtKey(d);
     if(attendance[dk]&&attendance[dk][k]!==undefined){
@@ -598,7 +591,6 @@ window.removeStudent=(k,name)=>{
   });
 };
 
-// FIX: edit student name/age
 let editingKey = null;
 window.openEditModal = (k)=>{
   editingKey = k;
@@ -619,7 +611,6 @@ window.saveEdit = ()=>{
   set(ref(db,'students/'+editingKey), {...existing, name, age: age||''});
   closeEditModal();
 };
-// Enter key in edit modal
 document.getElementById('editAge').addEventListener('keypress', e=>{ if(e.key==='Enter') saveEdit(); });
 document.getElementById('editName').addEventListener('keypress', e=>{ if(e.key==='Enter') document.getElementById('editAge').focus(); });
 
@@ -677,7 +668,6 @@ function renderStars() {
 }
 
 // ── POINTS ────────────────────────────────────
-// FIX: validate — no negative, no zero
 window.addPoints = (k,inputId)=>{
   const raw=parseInt(document.getElementById(inputId).value);
   if(isNaN(raw)||raw<=0){ alert('Please enter a positive number!'); return; }
@@ -778,7 +768,6 @@ function renderRanking() {
 }
 
 // ── AGE GROUPS ────────────────────────────────
-// FIX: Enter key support
 window.filterByAge = function() {
   const from = parseInt(document.getElementById('ageFrom').value);
   const to   = parseInt(document.getElementById('ageTo').value);
@@ -814,7 +803,6 @@ window.clearAgeFilter = function() {
 };
 
 // ── TAB SWITCHING ─────────────────────────────
-// FIX: track activeTab properly
 window.showTab=(tab,btn)=>{
   activeTab = tab;
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -841,7 +829,6 @@ window.showSubTab = function(sub, btn) {
   if(sub==='autogroup') previewAutoStudents();
 };
 
-// FIX: renderAll uses activeTab directly
 function renderAll() {
   renderSummary();
   renderAttendance();
@@ -854,6 +841,7 @@ function renderAll() {
 }
 
 // ── SUNNAH ADMIN ─────────────────────────────────
+// FIX: 'washroom' -> 'bathroom' so this matches the id used by the tracker page's Firebase data
 const SUNNAH_ALL_CATS=[{id:'eating',sunnahs:5},{id:'bathroom',sunnahs:6},{id:'traveling',sunnahs:6},{id:'wudu',sunnahs:6},{id:'sleeping',sunnahs:7}];
 const SUNNAH_WEEK_CATS=[['eating'],['eating','bathroom'],['eating','bathroom','traveling'],['eating','bathroom','traveling','wudu'],['eating','bathroom','traveling','wudu','sleeping']];
 function sunnahMaxForWeek(wi){ return SUNNAH_WEEK_CATS[wi].map(id=>SUNNAH_ALL_CATS.find(c=>c.id===id).sunnahs).reduce((a,b)=>a+b,0)*7; }
@@ -861,7 +849,7 @@ const SUNNAH_WEEKS=[];
 {const start=new Date(2026,5,29);for(let w=0;w<5;w++){const wStart=new Date(start);wStart.setDate(start.getDate()+w*7);const wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);const capEnd=new Date(2026,6,31);SUNNAH_WEEKS.push({num:w+1,start:new Date(wStart),end:wEnd>capEnd?capEnd:wEnd});}}
 let sunnahAllData={}, adminWeekIdx=0;
 onValue(ref(db,'sunnahs'),snap=>{sunnahAllData=snap.val()||{};if(activeTab==='sunnahs'){buildAdminWeekBtns();renderSunnahRanking();}});
-function adminCurWeek(){const t=new Date();for(let i=0;i<SUNNAH_WEEKS.length;i++)if(t>=SUNNAH_WEEKS[i].start&&t<=SUNNAH_WEEKS[i].end)return i;return t<SUNNAH_WEEKS[0].start?0:SUNNAH_WEEKS.length-1;}
+function adminCurWeek(){const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<SUNNAH_WEEKS.length;i++)if(t>=SUNNAH_WEEKS[i].start&&t<=SUNNAH_WEEKS[i].end)return i;return t<SUNNAH_WEEKS[0].start?0:SUNNAH_WEEKS.length-1;}
 function fmt2d(d){return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;}
 function buildAdminWeekBtns(){
   if(adminWeekIdx===0&&document.getElementById('adminWeekBtns').innerHTML==='')adminWeekIdx=adminCurWeek();
@@ -904,7 +892,6 @@ window.addGroupPoints=function(k,inputId){
   set(ref(db,'customGroups/'+k+'/points'),cur+val);document.getElementById(inputId).value='';
 };
 window.resetGroupPoints=function(k){if(!confirm('Reset points for this team to 0?'))return;set(ref(db,'customGroups/'+k+'/points'),0);};
-// FIX: Reset ALL group points
 window.resetAllGroupPoints=function(){
   const count=Object.keys(customGroups).length;if(!count){alert('No teams!');return;}
   if(!confirm('Reset ALL team points to 0?'))return;
@@ -1025,7 +1012,6 @@ function renderPairs(){
 
 // ── AUTO-GROUP ────────────────────────────────
 let autoMode='pairs', autoFilteredStudents=null;
-// FIX: consistent mode comparison
 window.setAutoMode=function(mode){
   autoMode=mode;
   const modeMap={pairs:'autoModePairs','3':'autoMode3','2teams':'autoMode2teams','custom':'autoModeCustom'};
@@ -1076,7 +1062,6 @@ window.generateAutoGroups=function(){
     </div>`;
   window._pendingAutoGroups=groupsData;
 };
-// FIX: unique key per group using index to avoid same-ms collision
 window.saveAutoGroupsNow=function(){
   const groupsData=window._pendingAutoGroups;if(!groupsData||!groupsData.length){alert('Please generate teams first!');return;}
   if(!confirm('Save '+groupsData.length+' teams?'))return;

@@ -52,4 +52,578 @@
   .bulk-area:focus { border-color: #ffd700; }
   .absent-list { background: #fff5f5; border: 1.5px solid #ffcdd2; border-radius: 12px; padding: 10px 12px; margin-top: 10px; }
   .absent-list-title { font-size: 12px; font-weight: 700; color: #c0392b; margin-bottom: 6px; }
-  .absent-chip { display: inline-block; background: #fee2e2; color: #c0392b; border-radius: 20px; padding: 3px 10px; font-size:
+  .absent-chip { display: inline-block; background: #fee2e2; color: #c0392b; border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 600; margin: 2px; }
+  .att-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .att-table th { background: #2d6a4f; color: white; padding: 6px 4px; text-align: center; font-weight: 600; position: sticky; top: 0; }
+  .att-table th:first-child { text-align: left; padding-left: 8px; min-width: 100px; }
+  .att-table td { padding: 5px 4px; text-align: center; border-bottom: 1px solid #e9ecef; }
+  .att-table td:first-child { text-align: left; padding-left: 8px; font-weight: 600; color: #1a472a; font-size: 12px; }
+  .att-table tr:nth-child(even) { background: #f8fdf8; }
+  .dot-p { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #52b788; line-height: 14px; font-size: 8px; color: white; }
+  .dot-a { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #dee2e6; }
+  .table-wrap { overflow-x: auto; max-height: 340px; overflow-y: auto; border-radius: 8px; }
+  .rank-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f8fdf8; border: 1.5px solid #c8e6c9; border-radius: 14px; margin-bottom: 8px; }
+  .rank-num { width: 30px; height: 30px; border-radius: 50%; background: #2d6a4f; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .rank-num.gold   { background: #ffd700; color: #1a472a; }
+  .rank-num.silver { background: #c0c0c0; color: #333; }
+  .rank-num.bronze { background: #cd7f32; color: white; }
+  .rank-name { font-size: 15px; font-weight: 700; color: #1a472a; }
+  .rank-bar { height: 6px; background: #e9ecef; border-radius: 3px; margin-top: 4px; }
+  .rank-bar-fill { height: 100%; background: linear-gradient(90deg,#52b788,#2d6a4f); border-radius: 3px; }
+  .rank-count { font-size: 13px; font-weight: 700; color: #2d6a4f; white-space: nowrap; }
+  .star-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fffdf0; border: 1.5px solid #ffe082; border-radius: 14px; margin-bottom: 8px; }
+  .star-count-display { font-size: 22px; font-weight: 800; color: #f57f17; min-width: 36px; text-align: center; }
+  .star-controls { display: flex; gap: 6px; }
+  .btn-star { width: 34px; height: 34px; border: none; border-radius: 8px; font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .btn-star-add { background: #ffd700; color: #1a472a; }
+  .btn-star-sub { background: #ffe082; color: #7f4f00; }
+  .points-card { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #f0f4ff; border: 1.5px solid #90caf9; border-radius: 14px; margin-bottom: 8px; }
+  .pts-input { width: 60px; padding: 6px 8px; border: 2px solid #90caf9; border-radius: 8px; font-size: 14px; text-align: center; outline: none; }
+  .btn-pts { padding: 7px 10px; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-pts-add { background: #1976d2; color: white; }
+  .pts-session-note { font-size: 11px; color: #888; margin-top: 2px; }
+  .notice-box { background: #fff; border-radius: 14px; padding: 20px 16px; text-align: center; color: #111; font-size: 14px; line-height: 1.9; font-weight: 500; }
+  .notice-box .big { font-size: 36px; margin-bottom: 8px; }
+  .notice-box .hi { color: #1a3c8f; font-weight: 700; }
+  .empty-state { text-align: center; padding: 20px; color: #555; font-size: 13px; }
+  .section-note { font-size: 12px; color: #888; margin-bottom: 10px; }
+  .btn-clear-session { width: 100%; padding: 10px; background: #fee2e2; color: #c0392b; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  .sub-tab { flex:1; padding:8px 4px; border:none; background:transparent; color:#a8d8a8; font-size:11px; font-weight:500; border-radius:8px; cursor:pointer; text-align:center; }
+  .sub-tab.active { background:#fff; color:#1a472a; font-weight:700; }
+  .group-card { background:#fff; border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); border:1.5px solid #c8e6c9; }
+  .group-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .group-name { font-size:15px; font-weight:700; color:#1a472a; }
+  .group-pts { font-size:20px; font-weight:800; color:#2d6a4f; }
+  .pair-card { background:#f0f4ff; border-radius:14px; padding:14px; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,.1); border:1.5px solid #90caf9; }
+  .member-chip { display:inline-flex; align-items:center; gap:6px; background:#e8f5e9; border:1px solid #52b788; border-radius:20px; padding:4px 10px; margin:3px; font-size:13px; font-weight:600; color:#1a472a; }
+  .member-chip-pair { display:inline-flex; align-items:center; gap:6px; background:#e3f2fd; border:1px solid #1976d2; border-radius:20px; padding:4px 10px; margin:3px; font-size:13px; font-weight:600; color:#1a472a; }
+  .btn-remove-member { background:none; border:none; color:#c0392b; cursor:pointer; font-size:14px; padding:0; }
+  .pts-row { display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .pts-small-input { width:70px; padding:6px 8px; border:2px solid #c8e6c9; border-radius:8px; font-size:14px; text-align:center; outline:none; }
+  .btn-add-pts { padding:7px 12px; background:#2d6a4f; color:white; border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; }
+  .btn-del-group { padding:5px 10px; background:#fee2e2; color:#c0392b; border:none; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer; }
+  .add-member-row { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); z-index:1000; display:flex; align-items:center; justify-content:center; padding:16px; }
+  .modal-box { background:white; border-radius:16px; padding:20px; width:100%; max-width:380px; box-shadow:0 8px 32px rgba(0,0,0,.3); }
+  .modal-title { font-size:16px; font-weight:700; color:#1a472a; margin-bottom:14px; }
+  .modal-input { width:100%; padding:10px 12px; border:2px solid #2d6a4f; border-radius:10px; font-size:14px; outline:none; margin-bottom:10px; }
+  .modal-input:focus { border-color:#ffd700; }
+  .modal-btns { display:flex; gap:8px; }
+  .btn-modal-save { flex:1; padding:10px; background:#2d6a4f; color:white; border:none; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; }
+  .btn-modal-cancel { flex:1; padding:10px; background:#e9ecef; color:#555; border:none; border-radius:10px; font-size:13px; font-weight:600; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">⛺</div>
+  <h1>Deen &amp; Fun Camp — Admin</h1>
+  <p>29 June – 31 July 2026 &nbsp;|&nbsp; Admin Panel</p>
+</div>
+
+<div class="status-bar" id="statusBar">Connecting...</div>
+<div class="summary-strip" id="summaryStrip"></div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTab('attendance',this)">📋 Attendance</button>
+  <button class="nav-tab" onclick="showTab('students',this)">👦 Students</button>
+  <button class="nav-tab" onclick="showTab('agegroups',this)">🎨 Age Groups</button>
+  <button class="nav-tab" onclick="showTab('stars',this)">⭐ Stars</button>
+  <button class="nav-tab" onclick="showTab('points',this)">🎯 Points</button>
+  <button class="nav-tab" onclick="showTab('record',this)">📊 Record</button>
+  <button class="nav-tab" onclick="showTab('ranking',this)">🏆 Ranking</button>
+  <button class="nav-tab" onclick="showTab('sunnahs',this)">🌟 Sunnahs</button>
+  <button class="nav-tab" onclick="showTab('competition',this)">🏆 Competition</button>
+</div>
+
+<!-- ATTENDANCE -->
+<div id="tab-attendance" class="section active">
+  <div class="card">
+    <div class="card-title">📅 Today's Attendance</div>
+    <div class="today-date" id="todayLabel"></div>
+    <div id="alphaAtt"></div>
+    <div class="student-list" id="attendanceList"><div class="empty-state">Loading...</div></div>
+    <div id="absentPanel"></div>
+  </div>
+</div>
+
+<!-- STUDENTS -->
+<div id="tab-students" class="section">
+  <div class="card">
+    <div class="card-title">👦 Add Student</div>
+    <div class="add-form">
+      <div class="add-row">
+        <input type="text" id="studentInput" placeholder="Child's full name..." onkeypress="if(event.key==='Enter')document.getElementById('studentAge').focus()"/>
+        <input type="number" id="studentAge" placeholder="Age" min="1" max="20" class="age-input" onkeypress="if(event.key==='Enter')addStudent()"/>
+        <button class="btn-add" onclick="addStudent()">+ Add</button>
+      </div>
+      <div style="border-top:1px solid #e9ecef;padding-top:10px;">
+        <div style="font-size:12px;font-weight:700;color:#2d6a4f;margin-bottom:6px;">📋 Bulk Import</div>
+        <p style="font-size:11px;color:#888;margin-bottom:6px;">Har line mein: <strong>Name, Age</strong> — jaise: Ahmed Ali, 8</p>
+        <textarea id="bulkInput" class="bulk-area" placeholder="Ahmed Ali, 8&#10;Sara Khan, 10&#10;Usman Malik, 7"></textarea>
+        <button onclick="bulkAddStudents()" style="margin-top:8px;width:100%;padding:10px;background:#52b788;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">⚡ Import All</button>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 All Students (<span id="studentCount">0</span>)</div>
+    <div class="student-list" id="studentMgmtList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- AGE GROUPS -->
+<div id="tab-agegroups" class="section">
+  <div class="card">
+    <div class="card-title">🎨 Age Group Filter</div>
+    <p class="section-note">Age range enter karen.</p>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label style="font-size:13px;font-weight:600;color:#333;margin:0;">From</label>
+        <input type="number" id="ageFrom" placeholder="e.g. 6" inputmode="numeric" style="width:70px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:14px;outline:none;" onkeypress="if(event.key==='Enter')filterByAge()"/>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <label style="font-size:13px;font-weight:600;color:#333;margin:0;">To</label>
+        <input type="number" id="ageTo" placeholder="e.g. 9" inputmode="numeric" style="width:70px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:14px;outline:none;" onkeypress="if(event.key==='Enter')filterByAge()"/>
+      </div>
+      <button onclick="filterByAge()" style="padding:9px 18px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">Search</button>
+      <button onclick="clearAgeFilter()" style="padding:9px 14px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Clear</button>
+    </div>
+    <div id="ageGroupResult"></div>
+  </div>
+</div>
+
+<!-- STARS -->
+<div id="tab-stars" class="section">
+  <div class="card">
+    <div class="card-title">⭐ Star Tracker</div>
+    <p class="section-note">Tap ⭐ to add a star, tap − to remove.</p>
+    <div id="starsList"><div class="empty-state">Loading...</div></div>
+  </div>
+</div>
+
+<!-- POINTS -->
+<div id="tab-points" class="section">
+  <div class="card">
+    <div class="card-title">🎯 Game / Quiz Points</div>
+    <p class="section-note">Enter points per child. Press "Clear All" when the game ends.</p>
+    <div id="pointsList"><div class="empty-state">Loading...</div></div>
+    <button class="btn-clear-session" onclick="clearAllPoints()">🗑 Clear All Points (Game Over)</button>
+  </div>
+</div>
+
+<!-- RECORD -->
+<div id="tab-record" class="section">
+  <div class="card">
+    <div class="card-title">📊 Full Attendance Record</div>
+    <div class="table-wrap">
+      <table class="att-table"><thead id="recordHead"></thead><tbody id="recordBody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- RANKING -->
+<div id="tab-ranking" class="section">
+  <div class="card">
+    <div class="card-title">🏆 Attendance Ranking</div>
+    <div id="rankingList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⭐ Star Ranking</div>
+    <div id="starRankingList"></div>
+  </div>
+</div>
+
+<!-- SUNNAHS -->
+<div id="tab-sunnahs" class="section">
+  <div class="card">
+    <div class="card-title">🌟 Sunnah Tracker — Results</div>
+    <p class="section-note">View weekly Sunnah completion for each child.</p>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;" id="adminWeekBtns"></div>
+    <div style="font-size:12px;font-weight:700;color:#2d6a4f;margin-bottom:12px;" id="adminWeekLbl"></div>
+    <div id="sunnahRankingList"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔗 Student Tracker Links</div>
+    <p class="section-note">Share each child's unique link.</p>
+    <div style="margin-bottom:8px;">
+      <input type="text" id="baseLinkInput" placeholder="Paste your tracker page URL here..." style="width:100%;padding:9px 12px;border:2px solid #2d6a4f;border-radius:10px;font-size:12px;outline:none;margin-bottom:8px;" onkeypress="if(event.key==='Enter')generateLinks()"/>
+      <button onclick="generateLinks()" style="width:100%;padding:9px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">⚡ Generate Links</button>
+    </div>
+    <div id="linksListArea"></div>
+  </div>
+</div>
+
+<!-- COMPETITION -->
+<div id="tab-competition" class="section">
+  <div class="nav-tabs" style="margin-bottom:10px;">
+    <button class="sub-tab active" onclick="showSubTab('groups',this)" id="subtab-groups">👥 Groups</button>
+    <button class="sub-tab" onclick="showSubTab('pairs',this)" id="subtab-pairs">🤝 Pairs</button>
+    <button class="sub-tab" onclick="showSubTab('autogroup',this)" id="subtab-autogroup">⚡ Auto-Make</button>
+  </div>
+  <div class="sub-section" id="sub-groups">
+    <div class="card">
+      <div class="card-title">👥 Create a Team</div>
+      <div class="add-row">
+        <input type="text" id="newGroupName" placeholder="Team name (e.g. Lions, Eagles)..." onkeypress="if(event.key==='Enter')createGroup()"/>
+        <button class="btn-add" onclick="createGroup()">+ Create</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="card-title" style="margin-bottom:0;">🏆 Live Ranking — Teams</div>
+        <div style="display:flex;gap:6px;">
+          <button onclick="resetAllGroupPoints()" style="padding:6px 10px;background:#fff8e1;color:#f57f17;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🔄 Reset All Pts</button>
+          <button onclick="deleteAllGroups()" style="padding:6px 12px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete All</button>
+        </div>
+      </div>
+      <div id="groupsList"><div class="empty-state">No teams yet.</div></div>
+    </div>
+  </div>
+  <div class="sub-section" id="sub-pairs" style="display:none;">
+    <div class="card">
+      <div class="card-title">🤝 Create a Pair</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <input type="text" id="newPairName" placeholder="Pair name (e.g. Round 1)..." style="padding:10px 12px;border:2px solid #2d6a4f;border-radius:10px;font-size:14px;outline:none;" onkeypress="if(event.key==='Enter')createPair()"/>
+        <select id="pairStudent1" style="padding:10px 12px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;background:white;"><option value="">Select Student 1</option></select>
+        <select id="pairStudent2" style="padding:10px 12px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;background:white;"><option value="">Select Student 2</option></select>
+        <button class="btn-add" onclick="createPair()">🤝 Create Pair</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="card-title" style="margin-bottom:0;">🏆 Live Ranking — Pairs</div>
+        <button onclick="deleteAllPairs()" style="padding:6px 12px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">🗑 Delete All</button>
+      </div>
+      <div id="pairsList"><div class="empty-state">No pairs yet.</div></div>
+    </div>
+  </div>
+  <div class="sub-section" id="sub-autogroup" style="display:none;">
+    <div class="card">
+      <div class="card-title">⚡ Auto-Make Teams</div>
+      <div style="margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:6px;">Filter by Age (optional)</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="number" id="autoAgeFrom" placeholder="Age from" style="width:80px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;" onkeypress="if(event.key==='Enter')previewAutoStudents()"/>
+          <span style="color:#555;font-size:13px;">to</span>
+          <input type="number" id="autoAgeTo" placeholder="Age to" style="width:80px;padding:8px 10px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;" onkeypress="if(event.key==='Enter')previewAutoStudents()"/>
+          <button onclick="previewAutoStudents()" style="padding:8px 14px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">Filter</button>
+          <button onclick="clearAutoFilter()" style="padding:8px 10px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:12px;cursor:pointer;">Clear</button>
+        </div>
+        <div id="autoFilteredList" style="margin-top:8px;"></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:#333;margin-bottom:8px;">How to divide?</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+        <button onclick="setAutoMode('pairs')" id="autoModePairs" style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">🤝 Pairs<br><span style="font-size:9px;font-weight:400;">2 each</span></button>
+        <button onclick="setAutoMode('3')" id="autoMode3" style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">👥 Groups of 3<br><span style="font-size:9px;font-weight:400;">3 each</span></button>
+        <button onclick="setAutoMode('2teams')" id="autoMode2teams" style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">🏆 2 Teams<br><span style="font-size:9px;font-weight:400;">Half & half</span></button>
+        <button onclick="setAutoMode('custom')" id="autoModeCustom" style="flex:1;min-width:90px;padding:9px 6px;border:2px solid #c8e6c9;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;background:#f8fdf8;color:#1a472a;">✏️ Custom<br><span style="font-size:9px;font-weight:400;">You choose</span></button>
+      </div>
+      <div id="customSizeRow" style="display:none;margin-bottom:10px;">
+        <input type="number" id="customGroupSize" placeholder="Students per group (e.g. 4)" style="width:100%;padding:9px 12px;border:2px solid #2d6a4f;border-radius:10px;font-size:14px;outline:none;"/>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <input type="text" id="autoTeamPrefix" placeholder="Team name prefix" value="Team" style="flex:1;padding:9px 12px;border:2px solid #c8e6c9;border-radius:10px;font-size:13px;outline:none;" onkeypress="if(event.key==='Enter')generateAutoGroups()"/>
+        <button onclick="generateAutoGroups()" style="padding:9px 16px;background:#ffd700;color:#1a472a;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;">⚡ Generate!</button>
+      </div>
+      <div id="autoPreviewArea"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div id="editModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <div class="modal-title">✏️ Edit Student</div>
+    <input type="text" id="editName" class="modal-input" placeholder="Student name"/>
+    <input type="number" id="editAge" class="modal-input" placeholder="Age" min="1" max="20"/>
+    <div class="modal-btns">
+      <button class="btn-modal-cancel" onclick="closeEditModal()">Cancel</button>
+      <button class="btn-modal-save" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDpJATiYye-RiKj2kAKeEPxquYvOiVr3RQ",
+  authDomain: "deenfuncamp.firebaseapp.com",
+  projectId: "deenfuncamp",
+  storageBucket: "deenfuncamp.firebasestorage.app",
+  messagingSenderId: "707882631016",
+  appId: "1:707882631016:web:06db2308e2123e746160dd",
+  databaseURL: "https://deenfuncamp-default-rtdb.firebaseio.com"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+// ✅ FIXED: Added 23,59,59 so last day is included
+const CAMP_START = new Date(2026, 5, 29);
+const CAMP_END   = new Date(2026, 6, 31, 23, 59, 59);
+
+function getCampDays() {
+  const days = [];
+  let d = new Date(CAMP_START);
+  while (d <= CAMP_END) {
+    if (d.getDay()>=1 && d.getDay()<=5) days.push(new Date(d));
+    d.setDate(d.getDate()+1);
+  }
+  return days;
+}
+const campDays = getCampDays();
+
+function fmtKey(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fmtDisplay(d) {
+  const dn=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const mn=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return dn[d.getDay()]+', '+d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();
+}
+function fmtShort(d) { return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
+function isCampDay(d) { return campDays.some(c=>fmtKey(c)===fmtKey(d)); }
+function initials(n) { return n.trim().split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2); }
+function uniqueKey() { return 'stu_'+Date.now()+'_'+Math.random().toString(36).slice(2,6); }
+function esc(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+let students={}, attendance={}, stars={}, points={};
+let activeTab='attendance';
+
+onValue(ref(db,'students'), snap=>{
+  students=snap.val()||{};
+  document.getElementById('statusBar').textContent='🟢 Connected — live data';
+  document.getElementById('statusBar').classList.remove('err');
+  renderAll();
+}, ()=>{
+  document.getElementById('statusBar').textContent='🔴 Connection error';
+  document.getElementById('statusBar').classList.add('err');
+});
+onValue(ref(db,'attendance'), snap=>{ attendance=snap.val()||{}; renderAll(); });
+onValue(ref(db,'stars'),      snap=>{ stars=snap.val()||{};      renderAll(); });
+onValue(ref(db,'points'),     snap=>{ points=snap.val()||{};     renderAll(); });
+
+function getStudentList() {
+  return Object.entries(students).map(([k,v])=>({k,name:v.name,age:v.age||''})).sort((a,b)=>a.name.localeCompare(b.name));
+}
+function groupByLetter(list) {
+  const g={};
+  list.forEach(s=>{ const l=s.name[0].toUpperCase(); if(!g[l]) g[l]=[]; g[l].push(s); });
+  return g;
+}
+function buildAlphaNav(letters, scrollFn) {
+  if(letters.length<=1) return '';
+  return `<div class="alpha-index">${letters.map(l=>`<button class="alpha-btn" onclick="${scrollFn}('${l}')">${l}</button>`).join('')}</div>`;
+}
+
+// ATTENDANCE
+window.toggleAttendance = k => {
+  const today=new Date(); if(!isCampDay(today)) return;
+  const dk=fmtKey(today);
+  const cur=attendance[dk]&&attendance[dk][k];
+  set(ref(db,'attendance/'+dk+'/'+k), cur===1?0:1);
+};
+
+function renderAttendance() {
+  document.getElementById('todayLabel').textContent=fmtDisplay(new Date());
+  const el=document.getElementById('attendanceList');
+  const ai=document.getElementById('alphaAtt');
+  const absentPanel=document.getElementById('absentPanel');
+  const today=new Date(), dk=fmtKey(today);
+
+  if(today<CAMP_START){ ai.innerHTML=''; absentPanel.innerHTML=''; const diff=Math.ceil((CAMP_START-today)/86400000); el.innerHTML=`<div class="notice-box"><div class="big">📅</div>Camp starts on <span class="hi">29 June 2026</span><br><span class="hi">${diff} days</span> to go!</div>`; return; }
+  if(today>CAMP_END){ ai.innerHTML=''; absentPanel.innerHTML=''; el.innerHTML=`<div class="notice-box"><div class="big">🏁</div>Camp ended. Check Record & Ranking.</div>`; return; }
+  if(!isCampDay(today)){ ai.innerHTML=''; absentPanel.innerHTML=''; el.innerHTML=`<div class="notice-box"><div class="big">🌙</div>Weekend — no camp today.<br>See you on <span class="hi">Monday</span>!</div>`; return; }
+
+  const list=getStudentList();
+  if(!list.length){ ai.innerHTML=''; absentPanel.innerHTML=''; el.innerHTML='<div class="empty-state">No students registered yet.</div>'; return; }
+
+  const att=attendance[dk]||{};
+  const groups=groupByLetter(list);
+  const letters=Object.keys(groups).sort();
+  ai.innerHTML=buildAlphaNav(letters,"scrollAttLetter");
+  el.innerHTML=letters.map(lt=>{
+    const hdr=`<div class="alpha-header" id="att_${lt}">${lt}</div>`;
+    return hdr+groups[lt].map(s=>{
+      const p=att[s.k]===1;
+      return `<div class="student-card ${p?'marked-present':''}">
+        <div class="avatar">${initials(s.name)}</div>
+        <div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Age: ${s.age||'—'} yrs &nbsp;|&nbsp; ${p?'✅ Present':'⏳ Not marked'}</div></div>
+        <button class="btn-mark ${p?'btn-present':'btn-absent'}" onclick="toggleAttendance('${esc(s.k)}')">${p?'✓ Present':'Mark Present'}</button>
+      </div>`;
+    }).join('');
+  }).join('');
+
+  const absentStudents=list.filter(s=>att[s.k]!==1);
+  absentPanel.innerHTML=absentStudents.length
+    ?`<div class="absent-list"><div class="absent-list-title">❌ Absent Today (${absentStudents.length})</div><div>${absentStudents.map(s=>`<span class="absent-chip">${s.name}</span>`).join('')}</div></div>`
+    :`<div style="text-align:center;padding:10px;font-size:13px;color:#52b788;font-weight:700;">🎉 Everyone is present today!</div>`;
+}
+window.scrollAttLetter = l => { const e=document.getElementById('att_'+l); if(e) e.scrollIntoView({behavior:'smooth',block:'nearest'}); };
+
+function renderSummary() {
+  const today=new Date(), dk=fmtKey(today), list=getStudentList();
+  const remaining=campDays.filter(d=>fmtKey(d)>dk).length;
+  let present=0,absent=0;
+  if(isCampDay(today)&&list.length){ const att=attendance[dk]||{}; present=list.filter(s=>att[s.k]===1).length; absent=list.length-present; }
+  document.getElementById('summaryStrip').innerHTML=`
+    <div class="summary-box"><div class="num">${list.length}</div><div class="lbl">Total Students</div></div>
+    <div class="summary-box"><div class="num">${present}</div><div class="lbl">Present Today</div></div>
+    <div class="summary-box"><div class="num red">${absent}</div><div class="lbl">Absent Today</div></div>
+    <div class="summary-box"><div class="num">${remaining}</div><div class="lbl">Days Remaining</div></div>`;
+}
+
+// STUDENTS
+window.addStudent=()=>{
+  const inp=document.getElementById('studentInput'), ageInp=document.getElementById('studentAge');
+  const name=inp.value.trim(); if(!name){alert('Please enter student name!');return;}
+  const age=ageInp.value.trim();
+  if(Object.values(students).some(s=>s.name.toLowerCase()===name.toLowerCase())){alert(name+' already exists!');return;}
+  set(ref(db,'students/'+uniqueKey()),{name,age:age||'',addedAt:Date.now()});
+  inp.value=''; ageInp.value=''; inp.focus();
+};
+window.bulkAddStudents=()=>{
+  const raw=document.getElementById('bulkInput').value.trim();
+  if(!raw){alert('Please paste student names first!');return;}
+  const lines=raw.split('\n').map(l=>l.trim()).filter(l=>l);
+  let added=0,skipped=0,skippedNames=[];
+  lines.forEach(line=>{
+    const parts=line.split(','); const name=parts[0].trim(); const age=parts[1]?parts[1].trim():'';
+    if(!name){skipped++;return;}
+    if(Object.values(students).some(s=>s.name.toLowerCase()===name.toLowerCase())){skipped++;skippedNames.push(name);return;}
+    set(ref(db,'students/'+uniqueKey()),{name,age,addedAt:Date.now()}); added++;
+  });
+  document.getElementById('bulkInput').value='';
+  let msg=`✅ ${added} student(s) added!`;
+  if(skipped) msg+=`\n⚠️ ${skipped} skipped: ${skippedNames.join(', ')}`;
+  alert(msg);
+};
+window.removeStudent=(k,name)=>{
+  if(!confirm('Remove '+name+'?\nAttendance, stars and points will also be deleted.'))return;
+  remove(ref(db,'students/'+k)); remove(ref(db,'stars/'+k)); remove(ref(db,'points/'+k));
+  campDays.forEach(d=>{ const dk=fmtKey(d); if(attendance[dk]&&attendance[dk][k]!==undefined) remove(ref(db,'attendance/'+dk+'/'+k)); });
+};
+let editingKey=null;
+window.openEditModal=(k)=>{ editingKey=k; const s=students[k]; if(!s)return; document.getElementById('editName').value=s.name; document.getElementById('editAge').value=s.age||''; document.getElementById('editModal').style.display='flex'; setTimeout(()=>document.getElementById('editName').focus(),100); };
+window.closeEditModal=()=>{ document.getElementById('editModal').style.display='none'; editingKey=null; };
+window.saveEdit=()=>{ if(!editingKey)return; const name=document.getElementById('editName').value.trim(); const age=document.getElementById('editAge').value.trim(); if(!name){alert('Name cannot be empty!');return;} set(ref(db,'students/'+editingKey),{...students[editingKey],name,age:age||''}); closeEditModal(); };
+document.getElementById('editAge').addEventListener('keypress',e=>{if(e.key==='Enter')saveEdit();});
+document.getElementById('editName').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('editAge').focus();});
+
+function renderStudents() {
+  const list=getStudentList(); document.getElementById('studentCount').textContent=list.length;
+  const el=document.getElementById('studentMgmtList');
+  if(!list.length){el.innerHTML='<div class="empty-state">No students yet.</div>';return;}
+  const groups=groupByLetter(list), letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>`<div class="alpha-header">${lt}</div>`+groups[lt].map(s=>{
+    const total=campDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length;
+    return `<div class="student-card"><div class="avatar">${initials(s.name)}</div><div style="flex:1"><div class="s-name">${s.name}</div><div class="s-info">Age: ${s.age||'—'} yrs &nbsp;|&nbsp; Attendance: ${total} days &nbsp;|&nbsp; ⭐ ${stars[s.k]||0}</div></div><button class="btn-edit" onclick="openEditModal('${esc(s.k)}')">✏️</button><button class="btn-del" onclick="removeStudent('${esc(s.k)}','${esc(s.name)}')">🗑</button></div>`;
+  }).join('')).join('');
+}
+
+// STARS
+window.addStar=k=>set(ref(db,'stars/'+k),(stars[k]||0)+1);
+window.removeStar=k=>{ if((stars[k]||0)>0) set(ref(db,'stars/'+k),(stars[k]||0)-1); };
+function renderStars() {
+  const list=getStudentList(), el=document.getElementById('starsList');
+  if(!list.length){el.innerHTML='<div class="empty-state">No students yet.</div>';return;}
+  const groups=groupByLetter(list), letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>`<div class="alpha-header">${lt}</div>`+groups[lt].map(s=>{
+    const cnt=stars[s.k]||0;
+    return `<div class="star-card"><div class="avatar">${initials(s.name)}</div><div style="flex:1"><div class="s-name">${s.name}</div><div style="font-size:14px;margin-top:3px">${cnt>0?'⭐'.repeat(Math.min(cnt,10))+(cnt>10?` +${cnt-10}`:''):'No stars yet'}</div></div><div style="display:flex;align-items:center;gap:8px"><span class="star-count-display">${cnt}</span><div class="star-controls"><button class="btn-star btn-star-sub" onclick="removeStar('${esc(s.k)}')">−</button><button class="btn-star btn-star-add" onclick="addStar('${esc(s.k)}')">⭐</button></div></div></div>`;
+  }).join('')).join('');
+}
+
+// POINTS
+window.addPoints=(k,id)=>{ const raw=parseInt(document.getElementById(id).value); if(isNaN(raw)||raw<=0)return; set(ref(db,'points/'+k),(points[k]||0)+raw); document.getElementById(id).value=''; };
+window.clearAllPoints=()=>{ if(!confirm('Clear ALL points?'))return; const c=prompt('Type YES to confirm:'); if(c!=='YES'){alert('Cancelled.');return;} set(ref(db,'points'),null); };
+function renderPoints() {
+  const list=getStudentList(), el=document.getElementById('pointsList');
+  if(!list.length){el.innerHTML='<div class="empty-state">No students yet.</div>';return;}
+  const groups=groupByLetter(list), letters=Object.keys(groups).sort();
+  el.innerHTML=letters.map(lt=>`<div class="alpha-header">${lt}</div>`+groups[lt].map(s=>{
+    const pts=points[s.k]||0, id='pts_'+s.k;
+    return `<div class="points-card"><div class="avatar">${initials(s.name)}</div><div style="flex:1"><div class="s-name">${s.name}</div><div class="pts-session-note">Total: <strong>${pts} pts</strong></div></div><input type="number" id="${id}" class="pts-input" placeholder="+pts" min="1" onkeypress="if(event.key==='Enter')addPoints('${esc(s.k)}','${id}')"/><button class="btn-pts btn-pts-add" onclick="addPoints('${esc(s.k)}','${id}')">Add</button></div>`;
+  }).join('')).join('');
+}
+
+// RECORD
+function renderRecord() {
+  const today=new Date(), pastDays=campDays.filter(d=>fmtKey(d)<=fmtKey(today));
+  const head=document.getElementById('recordHead'), body=document.getElementById('recordBody');
+  if(!pastDays.length){head.innerHTML='';body.innerHTML='<tr><td colspan="2" style="text-align:center;padding:16px;">Camp starts 29 June 2026</td></tr>';return;}
+  head.innerHTML='<tr><th>Name</th>'+pastDays.map(d=>`<th>${fmtShort(d)}</th>`).join('')+'<th>Total</th></tr>';
+  const list=getStudentList();
+  if(!list.length){body.innerHTML=`<tr><td colspan="${pastDays.length+2}" style="text-align:center;padding:16px;">No students</td></tr>`;return;}
+  body.innerHTML=list.map(s=>{ const cells=pastDays.map(d=>`<td>${attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1?'<span class="dot-p">✓</span>':'<span class="dot-a"></span>'}</td>`).join(''); const total=pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length; return `<tr><td>${s.name}</td>${cells}<td><strong>${total}</strong></td></tr>`; }).join('');
+}
+
+// RANKING
+function renderRanking() {
+  const list=getStudentList(), attEl=document.getElementById('rankingList'), starEl=document.getElementById('starRankingList');
+  if(!list.length){attEl.innerHTML=starEl.innerHTML='<div class="empty-state">No students yet.</div>';return;}
+  const pastDays=campDays.filter(d=>fmtKey(d)<=fmtKey(new Date())), maxDays=pastDays.length||1, medals=['gold','silver','bronze'];
+  const attRanked=[...list].map(s=>({name:s.name,count:pastDays.filter(d=>attendance[fmtKey(d)]&&attendance[fmtKey(d)][s.k]===1).length})).sort((a,b)=>b.count-a.count);
+  attEl.innerHTML=attRanked.map((s,i)=>{ const pct=Math.round(s.count/maxDays*100),m=medals[i]||null,icon=m==='gold'?'🥇':m==='silver'?'🥈':m==='bronze'?'🥉':i+1; return `<div class="rank-card"><div class="rank-num ${m||''}">${icon}</div><div style="flex:1"><div class="rank-name">${s.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div class="rank-bar" style="flex:1"><div class="rank-bar-fill" style="width:${pct}%"></div></div><span style="font-size:11px;color:#444">${pct}%</span></div></div><div class="rank-count">${s.count}/${maxDays}</div></div>`; }).join('');
+  const starRanked=[...list].map(s=>({name:s.name,cnt:stars[s.k]||0})).sort((a,b)=>b.cnt-a.cnt), maxStar=Math.max(...starRanked.map(s=>s.cnt),1);
+  starEl.innerHTML=starRanked.map((s,i)=>{ const pct=Math.round(s.cnt/maxStar*100),m=medals[i]||null,icon=m==='gold'?'🥇':m==='silver'?'🥈':m==='bronze'?'🥉':i+1; return `<div class="rank-card" style="background:#fffdf0;border-color:#ffe082"><div class="rank-num ${m||''}">${icon}</div><div style="flex:1"><div class="rank-name">${s.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><div class="rank-bar" style="flex:1"><div class="rank-bar-fill" style="width:${pct}%;background:linear-gradient(90deg,#ffd700,#f57f17)"></div></div><span style="font-size:11px;color:#444">${s.cnt} ⭐</span></div></div><div class="rank-count" style="color:#f57f17">${s.cnt} stars</div></div>`; }).join('');
+}
+
+// AGE FILTER
+window.filterByAge=function(){ const from=parseInt(document.getElementById('ageFrom').value),to=parseInt(document.getElementById('ageTo').value),el=document.getElementById('ageGroupResult'); if(isNaN(from)||isNaN(to)){el.innerHTML='<div class="empty-state">⚠️ Please enter both ages.</div>';return;} if(from>to){el.innerHTML='<div class="empty-state">⚠️ From cannot be greater than To.</div>';return;} const list=getStudentList().filter(s=>{const a=parseInt(s.age);return !isNaN(a)&&a>=from&&a<=to;}).sort((a,b)=>parseInt(a.age)-parseInt(b.age)||a.name.localeCompare(b.name)); if(!list.length){el.innerHTML=`<div class="empty-state">No students between age ${from}–${to}.</div>`;return;} const byAge={};list.forEach(s=>{const a=s.age||'?';if(!byAge[a])byAge[a]=[];byAge[a].push(s);}); const colors=['#e8f5e9','#e3f2fd','#fff8e1','#fce4ec','#f3e5f5','#e0f2f1'],borders=['#52b788','#1976d2','#f9a825','#e91e63','#9c27b0','#009688']; let html=`<div style="background:#2d6a4f;color:white;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600;">Found <strong>${list.length} student${list.length!==1?'s':''}</strong> between age ${from}–${to}</div>`; Object.keys(byAge).sort((a,b)=>parseInt(a)-parseInt(b)).forEach((age,idx)=>{const col=colors[idx%colors.length],bor=borders[idx%borders.length];html+=`<div style="margin-bottom:12px;"><div style="background:${bor};color:white;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;margin-bottom:6px;display:inline-block;">Age ${age} — ${byAge[age].length} student${byAge[age].length!==1?'s':''}</div>`;byAge[age].forEach((s,i)=>{html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${col};border:1.5px solid ${bor};border-radius:12px;margin-bottom:6px;"><div style="width:36px;height:36px;border-radius:50%;background:${bor};display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px;flex-shrink:0;">${initials(s.name)}</div><div style="flex:1"><div style="font-size:16px;font-weight:700;color:#1a472a;">${s.name}</div><div style="font-size:11px;color:#444;margin-top:2px;">Age: ${s.age} yrs</div></div><div style="font-size:20px;font-weight:800;color:${bor};">#${i+1}</div></div>`;});html+='</div>';});el.innerHTML=html; };
+window.clearAgeFilter=function(){ document.getElementById('ageFrom').value=''; document.getElementById('ageTo').value=''; document.getElementById('ageGroupResult').innerHTML=''; };
+
+// TAB SWITCHING
+window.showTab=(tab,btn)=>{ activeTab=tab; document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')); document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active')); document.getElementById('tab-'+tab).classList.add('active'); btn.classList.add('active'); if(tab==='record')renderRecord(); if(tab==='ranking')renderRanking(); if(tab==='students')renderStudents(); if(tab==='stars')renderStars(); if(tab==='points')renderPoints(); if(tab==='agegroups')document.getElementById('ageGroupResult').innerHTML=''; if(tab==='sunnahs'){buildAdminWeekBtns();renderSunnahRanking();} };
+window.showSubTab=function(sub,btn){ document.querySelectorAll('.sub-section').forEach(s=>s.style.display='none'); document.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active')); const el=document.getElementById('sub-'+sub); if(el)el.style.display='block'; if(btn)btn.classList.add('active'); if(sub==='groups')renderGroups(); if(sub==='pairs')renderPairs(); if(sub==='autogroup')previewAutoStudents(); };
+
+function renderAll() { renderSummary(); renderAttendance(); if(activeTab==='record')renderRecord(); if(activeTab==='ranking')renderRanking(); if(activeTab==='students')renderStudents(); if(activeTab==='stars')renderStars(); if(activeTab==='points')renderPoints(); if(activeTab==='sunnahs'){buildAdminWeekBtns();renderSunnahRanking();} }
+
+// SUNNAH ADMIN
+const SUNNAH_ALL_CATS=[{id:'eating',sunnahs:5},{id:'washroom',sunnahs:6},{id:'traveling',sunnahs:6},{id:'wudu',sunnahs:6},{id:'sleeping',sunnahs:7}];
+const SUNNAH_WEEK_CATS=[['eating'],['eating','washroom'],['eating','washroom','traveling'],['eating','washroom','traveling','wudu'],['eating','washroom','traveling','wudu','sleeping']];
+function sunnahMaxForWeek(wi){return SUNNAH_WEEK_CATS[wi].map(id=>SUNNAH_ALL_CATS.find(c=>c.id===id).sunnahs).reduce((a,b)=>a+b,0)*7;}
+const SUNNAH_WEEKS=[];
+{const start=new Date(2026,5,29);for(let w=0;w<5;w++){const wStart=new Date(start);wStart.setDate(start.getDate()+w*7);const wEnd=new Date(wStart);wEnd.setDate(wStart.getDate()+6);const capEnd=new Date(2026,6,31,23,59,59);SUNNAH_WEEKS.push({num:w+1,start:new Date(wStart),end:wEnd>capEnd?capEnd:wEnd});}}
+let sunnahAllData={},adminWeekIdx=0;
+onValue(ref(db,'sunnahs'),snap=>{sunnahAllData=snap.val()||{};if(activeTab==='sunnahs'){buildAdminWeekBtns();renderSunnahRanking();}});
+function adminCurWeek(){const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<SUNNAH_WEEKS.length;i++)if(t>=SUNNAH_WEEKS[i].start&&t<=SUNNAH_WEEKS[i].end)return i;return t<SUNNAH_WEEKS[0].start?0:SUNNAH_WEEKS.length-1;}
+function fmt2d(d){return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;}
+function buildAdminWeekBtns(){if(adminWeekIdx===0&&document.getElementById('adminWeekBtns').innerHTML==='')adminWeekIdx=adminCurWeek();const el=document.getElementById('adminWeekBtns');if(!el)return;el.innerHTML=SUNNAH_WEEKS.map((w,i)=>`<button onclick="selectAdminWeek(${i})" style="padding:7px 12px;border:none;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;background:${i===adminWeekIdx?'#ffd700':'rgba(45,106,79,.12)'};color:${i===adminWeekIdx?'#1a472a':'#2d6a4f'};border:1.5px solid ${i===adminWeekIdx?'#ffd700':'#c8e6c9'};">Week ${w.num}<br><span style="font-size:9px;font-weight:500">${fmt2d(w.start)}–${fmt2d(w.end)}</span></button>`).join('');const lbl=document.getElementById('adminWeekLbl');if(lbl){const w=SUNNAH_WEEKS[adminWeekIdx];lbl.textContent=`📅 Week ${w.num}: ${fmt2d(w.start)} – ${fmt2d(w.end)}`;}}
+window.selectAdminWeek=function(idx){adminWeekIdx=idx;buildAdminWeekBtns();renderSunnahRanking();};
+function countStudentWeekTicks(studentKey,weekIdx){const wk='week'+(weekIdx+1);const wd=(sunnahAllData[studentKey]||{})[wk]||{};let total=0;SUNNAH_WEEK_CATS[weekIdx].forEach(catId=>{const cat=SUNNAH_ALL_CATS.find(c=>c.id===catId);const cd=wd[catId]||{};for(let si=0;si<cat.sunnahs;si++){const sd=cd[si]||{};for(let d=0;d<7;d++)if(sd[d])total++;}});return total;}
+function renderSunnahRanking(){const el=document.getElementById('sunnahRankingList');if(!el)return;const list=getStudentList();if(!list.length){el.innerHTML='<div class="empty-state">No students registered yet.</div>';return;}const ranked=[...list].map(s=>({name:s.name,k:s.k,ticks:countStudentWeekTicks(s.k,adminWeekIdx)})).sort((a,b)=>b.ticks-a.ticks);const medals=['🥇','🥈','🥉'];const maxTicks=Math.max(...ranked.map(r=>r.ticks),1);el.innerHTML=ranked.map((s,i)=>{const weekMax=sunnahMaxForWeek(adminWeekIdx);const pct=Math.round(s.ticks/weekMax*100);const barPct=Math.round(s.ticks/maxTicks*100);const medal=i<3?medals[i]:(i+1)+'';const color=i===0?'#ffd700':i===1?'#c0c0c0':i===2?'#cd7f32':'#2d6a4f';return `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${i<3?'#fffdf0':'#f8fdf8'};border:1.5px solid ${i<3?'#ffe082':'#c8e6c9'};border-radius:14px;margin-bottom:8px;"><div style="width:32px;height:32px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:${i<3?'18':'12'}px;font-weight:700;color:${i===1?'#333':'#fff'};flex-shrink:0;">${medal}</div><div style="flex:1;"><div style="font-size:15px;font-weight:700;color:#1a472a;">${s.name}</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px;"><div style="height:6px;flex:1;background:#e9ecef;border-radius:3px;overflow:hidden;"><div style="height:100%;width:${barPct}%;background:linear-gradient(90deg,#ffd700,#f57f17);border-radius:3px;"></div></div><span style="font-size:11px;color:#666;">${pct}%</span></div></div><div style="font-size:14px;font-weight:800;color:${color==='#2d6a4f'?'#2d6a4f':color};white-space:nowrap;">${s.ticks}/${weekMax}</div></div>`;}).join('');}
+window.generateLinks=function(){const base=document.getElementById('baseLinkInput').value.trim();if(!base){alert('Please paste the Sunnah_Tracker.html URL first!');return;}const list=getStudentList();const el=document.getElementById('linksListArea');if(!list.length){el.innerHTML='<div class="empty-state">No students yet.</div>';return;}el.innerHTML=list.map(s=>{const link=base+(base.includes('?')?'&':'?')+'s='+encodeURIComponent(s.k);return `<div style="padding:8px 10px;background:#f8fdf8;border:1.5px solid #c8e6c9;border-radius:12px;margin-bottom:7px;"><div style="font-size:14px;font-weight:700;color:#1a472a;margin-bottom:4px;">${s.name}</div><div style="font-size:10px;color:#555;word-break:break-all;background:#e8f5e9;padding:5px 8px;border-radius:7px;margin-bottom:5px;">${link}</div><button onclick="copyLink('${link.replace(/'/g,"\\'")}',this)" style="padding:6px 14px;background:#2d6a4f;color:white;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">📋 Copy Link</button></div>`;}).join('');};
+window.copyLink=function(link,btn){navigator.clipboard.writeText(link).then(()=>{btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='📋 Copy Link',1800);});};
+
+// GROUPS
+let customGroups={},customPairs={};
+onValue(ref(db,'customGroups'),snap=>{customGroups=snap.val()||{};if(activeTab==='competition')renderGroups();});
+onValue(ref(db,'customPairs'), snap=>{customPairs=snap.val()||{};if(activeTab==='competition')renderPairs();});
+window.createGroup=function(){const inp=document.getElementById('newGroupName');const name=inp.value.trim();if(!name)return;const k='grp_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);set(ref(db,'customGroups/'+k),{name,members:[],points:0});inp.value='';};
+window.deleteGroup=function(k){if(!confirm('Delete this group?'))return;remove(ref(db,'customGroups/'+k));};
+window.addGroupPoints=function(k,id){const val=parseInt(document.getElementById(id).value)||0;if(!val||val<0)return;set(ref(db,'customGroups/'+k+'/points'),(customGroups[k]&&customGroups[k].points||0)+val);document.getElementById(id).value='';};
+window.resetGroupPoints=function(k){if(!confirm('Reset points for this team to 0?'))return;set(ref(db,'customGroups/'+k+'/points'),0);};
+window.resetAllGroupPoints=function(){const count=Object.keys(customGroups).length;if(!count){alert('No teams!');return;}if(!confirm('Reset ALL team points to 0?'))return;Object.keys(customGroups).forEach(k=>set(ref(db,'customGroups/'+k+'/points'),0));};
+window.addMemberToGroup=function(k,selId){const sel=document.getElementById(selId);const mk=sel.value;if(!mk)return;const mn=students[mk]&&students[mk].name;if(!mn)return;const cur=customGroups[k]&&customGroups[k].members||[];if(cur.find(m=>m.k===mk)){alert('Already in group!');return;}set(ref(db,'customGroups/'+k+'/members'),[...cur,{k:mk,name:mn}]);sel.value='';};
+window.removeMemberFromGroup=function(gk,mk){const cur=customGroups[gk]&&customGroups[gk].members||[];set(ref(db,'customGroups/'+gk+'/members'),cur.filter(m=>m.k!==mk).length?cur.filter(m=>m.k!==mk):null);};
+function renderGroups(){const el=document.getElementById('groupsList');if(!el)return;const list=Object.entries(customGroups);if(!list.length){el.innerHTML='<div class="empty-state">No teams yet. Create one above!</div>';return;}const medals=['🥇','🥈','🥉'];const rankColors=['#ffd700','#c0c0c0','#cd7f32'];const rankTextColors=['#1a472a','#333','white'];const sorted=[...list].map(([k,g])=>({k,pts:g.points||0})).sort((a,b)=>b.pts-a.pts);const rankMap={};sorted.forEach(({k},i)=>rankMap[k]=i);const studentList=getStudentList();el.innerHTML=list.map(([k,g])=>{const members=g.members||[];const pts=g.points||0;const inpId='gpts_'+k;const selId='gsel_'+k;const ri=rankMap[k];const medal=ri<3?medals[ri]:'#'+(ri+1);const badgeBg=ri<3?rankColors[ri]:'#e9ecef';const badgeText=ri<3?rankTextColors[ri]:'#555';const memberOptions=studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');const memberChips=members.map(m=>`<span class="member-chip">${m.name}<button class="btn-remove-member" onclick="removeMemberFromGroup('${esc(k)}','${esc(m.k)}')">✕</button></span>`).join('');return `<div class="group-card" style="border-left:4px solid ${ri===0?'#ffd700':ri===1?'#c0c0c0':ri===2?'#cd7f32':'#c8e6c9'};"><div class="group-header"><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:${badgeBg};display:flex;align-items:center;justify-content:center;font-size:${ri<3?'17':'12'}px;font-weight:800;color:${badgeText};flex-shrink:0;">${medal}</div><div><div class="group-name">👥 ${g.name}</div><div style="font-size:11px;color:#666;margin-top:2px;">${members.length} member${members.length!==1?'s':''}</div></div></div><div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="group-pts">${pts} pts</div><button class="btn-del-group" onclick="deleteGroup('${esc(k)}')">🗑 Delete</button></div></div><div style="margin-bottom:8px;">${memberChips||'<span style="font-size:12px;color:#888;">No members yet</span>'}</div><div class="add-member-row"><select id="${selId}" style="flex:1;padding:7px 10px;border:2px solid #c8e6c9;border-radius:8px;font-size:13px;outline:none;background:white;"><option value="">+ Add student</option>${memberOptions}</select><button onclick="addMemberToGroup('${esc(k)}','${selId}')" style="padding:7px 12px;background:#2d6a4f;color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;">Add</button></div><div class="pts-row"><span style="font-size:12px;font-weight:600;color:#555;">Points:</span><input type="number" id="${inpId}" class="pts-small-input" placeholder="+pts" min="1" onkeypress="if(event.key==='Enter')addGroupPoints('${esc(k)}','${inpId}')"/><button class="btn-add-pts" onclick="addGroupPoints('${esc(k)}','${inpId}')">Add</button><button onclick="resetGroupPoints('${esc(k)}')" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">Reset</button></div></div>`;}).join('');}
+
+// PAIRS
+window.createPair=function(){const name=document.getElementById('newPairName').value.trim();const s1k=document.getElementById('pairStudent1').value;const s2k=document.getElementById('pairStudent2').value;if(!name){alert('Please enter a pair name!');return;}if(!s1k){alert('Please select Student 1!');return;}if(!s2k){alert('Please select Student 2!');return;}if(s1k===s2k){alert('Please select two different students!');return;}const k='pair_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);set(ref(db,'customPairs/'+k),{name,s1:{k:s1k,name:students[s1k]&&students[s1k].name||s1k},s2:{k:s2k,name:students[s2k]&&students[s2k].name||s2k},points:0});document.getElementById('newPairName').value='';document.getElementById('pairStudent1').value='';document.getElementById('pairStudent2').value='';};
+window.deletePair=function(k){if(!confirm('Delete this pair?'))return;remove(ref(db,'customPairs/'+k));};
+window.addPairPoints=function(k,id){const val=parseInt(document.getElementById(id).value)||0;if(!val||val<0)return;set(ref(db,'customPairs/'+k+'/points'),(customPairs[k]&&customPairs[k].points||0)+val);document.getElementById(id).value='';};
+window.resetPairPoints=function(k){if(!confirm('Reset points for this pair to 0?'))return;set(ref(db,'customPairs/'+k+'/points'),0);};
+function renderPairs(){const el=document.getElementById('pairsList');if(!el)return;const studentList=getStudentList();const opts='<option value="">Select student</option>'+studentList.map(s=>`<option value="${s.k}">${s.name}</option>`).join('');const sel1=document.getElementById('pairStudent1');const sel2=document.getElementById('pairStudent2');if(sel1)sel1.innerHTML=opts;if(sel2)sel2.innerHTML=opts;const list=Object.entries(customPairs);if(!list.length){el.innerHTML='<div class="empty-state">No pairs yet. Create one above!</div>';return;}const rankMap2={};[...list].map(([k,p])=>({k,pts:p.points||0})).sort((a,b)=>b.pts-a.pts).forEach(({k},i)=>rankMap2[k]=i);const medals2=['🥇','🥈','🥉'];const rColors2=['#ffd700','#c0c0c0','#cd7f32'];const rText2=['#1a472a','#333','white'];el.innerHTML=list.map(([k,p])=>{const pts=p.points||0;const inpId='ppts_'+k;const ri2=rankMap2[k];const badgeBg2=ri2<3?rColors2[ri2]:'#e9ecef';const badgeText2=ri2<3?rText2[ri2]:'#555';const medal2=ri2<3?medals2[ri2]:'#'+(ri2+1);return `<div class="pair-card" style="border-left:4px solid ${ri2===0?'#ffd700':ri2===1?'#c0c0c0':ri2===2?'#cd7f32':'#90caf9'};"><div class="group-header"><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:${badgeBg2};display:flex;align-items:center;justify-content:center;font-size:${ri2<3?'17':'12'}px;font-weight:800;color:${badgeText2};flex-shrink:0;">${medal2}</div><div><div class="group-name" style="color:#1565c0;">🤝 ${p.name}</div><div style="margin-top:4px;"><span class="member-chip-pair">${p.s1&&p.s1.name||'?'}</span><span style="font-size:12px;color:#888;font-weight:700;">vs</span><span class="member-chip-pair">${p.s2&&p.s2.name||'?'}</span></div></div></div><div style="text-align:right;display:flex;flex-direction:column;gap:4px;align-items:flex-end;"><div class="group-pts" style="color:#1565c0;">${pts} pts</div><button class="btn-del-group" onclick="deletePair('${esc(k)}')">🗑 Delete</button></div></div><div class="pts-row"><span style="font-size:12px;font-weight:600;color:#555;">Points:</span><input type="number" id="${inpId}" class="pts-small-input" placeholder="+pts" min="1" onkeypress="if(event.key==='Enter')addPairPoints('${esc(k)}','${inpId}')"/><button class="btn-add-pts" style="background:#1976d2;" onclick="addPairPoints('${esc(k)}','${inpId}')">Add</button><button onclick="resetPairPoints('${esc(k)}')" style="padding:7px 10px;background:#fee2e2;color:#c0392b;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;">Reset</button></div></div>`;}).join('');}
+
+// AUTO-GROUP
+let autoMode='pairs',autoFilteredStudents=null;
+window.setAutoMode=function(mode){autoMode=mode;const modeMap={pairs:'autoModePairs','3':'autoMode3','2teams':'autoMode2teams','custom':'autoModeCustom'};Object.entries(modeMap).forEach(([m,id])=>{const btn=document.getElementById(id);if(!btn)return;const active=m===mode;btn.style.background=active?'#2d6a4f':'#f8fdf8';btn.style.color=active?'white':'#1a472a';btn.style.borderColor=active?'#2d6a4f':'#c8e6c9';});document.getElementById('customSizeRow').style.display=mode==='custom'?'block':'none';};
+window.previewAutoStudents=function(){const from=parseInt(document.getElementById('autoAgeFrom').value);const to=parseInt(document.getElementById('autoAgeTo').value);const el=document.getElementById('autoFilteredList');let list=getStudentList();if(!isNaN(from)&&!isNaN(to))list=list.filter(s=>{const a=parseInt(s.age);return !isNaN(a)&&a>=from&&a<=to;});autoFilteredStudents=list.length?list:null;if(!list.length){el.innerHTML='<div class="empty-state">No students match.</div>';return;}el.innerHTML=`<div style="background:#e8f5e9;border-radius:10px;padding:8px 12px;font-size:12px;color:#1a472a;font-weight:600;">✅ ${list.length} students: ${list.map(s=>s.name).join(', ')}</div>`;};
+window.clearAutoFilter=function(){document.getElementById('autoAgeFrom').value='';document.getElementById('autoAgeTo').value='';document.getElementById('autoFilteredList').innerHTML='';autoFilteredStudents=null;};
+window.generateAutoGroups=function(){const list=autoFilteredStudents||getStudentList();if(list.length<2){alert('Need at least 2 students!');return;}const prefix=document.getElementById('autoTeamPrefix').value.trim()||'Team';const shuffled=[...list].sort(()=>Math.random()-0.5);let groups=[];if(autoMode==='pairs')for(let i=0;i<shuffled.length;i+=2)groups.push(shuffled.slice(i,i+2));else if(autoMode==='3')for(let i=0;i<shuffled.length;i+=3)groups.push(shuffled.slice(i,i+3));else if(autoMode==='2teams'){const h=Math.ceil(shuffled.length/2);groups=[shuffled.slice(0,h),shuffled.slice(h)];}else if(autoMode==='custom'){const sz=parseInt(document.getElementById('customGroupSize').value)||2;for(let i=0;i<shuffled.length;i+=sz)groups.push(shuffled.slice(i,i+sz));}const colors=['#e8f5e9','#e3f2fd','#fff8e1','#fce4ec','#f3e5f5','#e0f2f1'];const borders=['#52b788','#1976d2','#f9a825','#e91e63','#9c27b0','#009688'];const groupsData=groups.map((g,i)=>({name:prefix+' '+(i+1),members:g}));document.getElementById('autoPreviewArea').innerHTML=`<div style="background:#2d6a4f;color:white;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:600;">Preview — ${groups.length} groups from ${list.length} students</div>${groups.map((g,i)=>`<div style="background:${colors[i%colors.length]};border:1.5px solid ${borders[i%borders.length]};border-radius:12px;padding:10px 12px;margin-bottom:8px;"><div style="font-size:13px;font-weight:800;color:#1a472a;margin-bottom:6px;">${prefix} ${i+1} (${g.length} members)</div><div>${g.map(s=>`<span style="display:inline-flex;background:white;border:1px solid ${borders[i%borders.length]};border-radius:16px;padding:3px 10px;margin:2px;font-size:12px;font-weight:600;color:#1a472a;">${s.name}</span>`).join('')}</div></div>`).join('')}<div style="display:flex;gap:8px;margin-top:10px;"><button onclick="generateAutoGroups()" style="flex:1;padding:9px;background:#e9ecef;color:#555;border:none;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;">🔀 Reshuffle</button><button onclick="saveAutoGroupsNow()" style="flex:1;padding:9px;background:#2d6a4f;color:white;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;">✅ Save All Teams</button></div>`;window._pendingAutoGroups=groupsData;};
+window.saveAutoGroupsNow=function(){const groupsData=window._pendingAutoGroups;if(!groupsData||!groupsData.length){alert('Please generate teams first!');return;}if(!confirm('Save '+groupsData.length+' teams?'))return;const base=Date.now();groupsData.forEach((g,i)=>{const k='grp_'+(base+i)+'_'+Math.random().toString(36).slice(2,5);set(ref(db,'customGroups/'+k),{name:g.name,members:g.members.map(s=>({k:s.k,name:s.name})),points:0});});document.getElementById('autoPreviewArea').innerHTML='<div style="background:#e8f5e9;border-radius:10px;padding:12px;text-align:center;font-size:13px;font-weight:700;color:#1a472a;">✅ Teams saved! Go to Groups tab to add points.</div>';window._pendingAutoGroups=null;setTimeout(()=>{showSubTab('groups',document.getElementById('subtab-groups'));document.querySelectorAll('.sub-tab').forEach(t=>t.classList.remove('active'));document.getElementById('subtab-groups').classList.add('active');},1200);};
+window.deleteAllGroups=function(){const count=Object.keys(customGroups).length;if(!count){alert('No teams to delete!');return;}if(!confirm('Delete ALL '+count+' teams?'))return;set(ref(db,'customGroups'),null);};
+window.deleteAllPairs=function(){const count=Object.keys(customPairs).length;if(!count){alert('No pairs to delete!');return;}if(!confirm('Delete ALL '+count+' pairs?'))return;set(ref(db,'customPairs'),null);};
+</script>
+</body>
+</html>
